@@ -1,0 +1,46 @@
+<div class="navbar">
+  <nav class="apb-nav" ng-controller="NavbarController">
+    <div class="apb-logo">
+      <a><span class="">APB System</span></a>
+    </div>
+    <div class="apb-nav-box">
+      <div class="apb-nav-text">
+        Welcome, {{currentUser.get('firstname')}}
+      </div>
+      <div class="apb-nav-tool">
+        <div ng-show="currentUser.get('patientPointer')">
+          <a href="#/patient/profile"><i class="fa fa-user"></i>&nbsp {{currentUser.get('firstname')}} {{currentUser.get('lastname')}}</a>
+        </div>
+        <div ng-show="currentUser.get('doctorPointer')">
+          <a href="#/doctor/profile"><i class="fa fa-user"></i>&nbsp {{currentUser.get('firstname')}} {{currentUser.get('lastname')}}</a>
+        </div>
+        <a href="#/inbox">
+          <i class="fa fa-envelope"></i>
+          <!-- <span class="apb-badge">1</span> -->
+          Inbox
+        </a>
+        <a href="" ng-click="logOut()">
+          <i class="fa fa-door"></i>
+          <!-- <span class="apb-badge">1</span> -->
+          Logout
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="apb-side" ng-show="currentUser.get('patientPointer')">
+    <a href="#/patient/home" class='apb-a'>
+      <i class="fa fa-stethoscope"></i> Patient Home</a>
+    <a href="#/patient/MedCabinet" class='apb-a'>
+      <i class="fa fa-plus-square"></i> Medicine Cabinet</a>
+    <a href="#/patient/appointments" class='apb-a' >
+      <i class="fa fa-calendar-check-o"></i> Appointments</a>
+  </div>
+  <div class="apb-side" ng-show="currentUser.get('doctorPointer')">
+    <a href="#/doctor/home" class='apb-a'>
+      <i class="fa fa-stethoscope"></i> Doctor Home</a>
+    <a href="#/doctor/docpatient" class='apb-a'>
+      <i class="fa fa-stethoscope"></i> Patient Prescriptions</a>
+    <a href="#/doctor/graph" class='apb-a'>
+      <i class="fa fa-line-chart"></i> Patient Graphs</a>
+  </div>
+</div>

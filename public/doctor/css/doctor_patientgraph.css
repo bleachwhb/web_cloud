@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Helvetica Neue"
+}
+body {
+    background-color: white;
+}
+.col-md-4 {
+    padding-left: 5%;
+    padding-right: 10px;
+}
+#graph {
+    padding-right: 5%;
+    margin-top: 100px;
+}
+#patien_names {
+    margin-top: 20px;
+    height: 550px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#patien_names_doctorhome {
+    margin-top: 20px;
+    height: 550px;
+    width: 700px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.col-md-8 > .btn-group {
+    float: right;
+    margin-bottom: 0;
+    margin-right: 5%;
+}
+.btn-group button {
+    width: 100px;
+}
+
+.label-for-date {
+    width: 80px;
+}
+.reminder {
+    color: #8c8c8c;
+    margin-top: 15px;
+    margin-bottom: -15px;
+}

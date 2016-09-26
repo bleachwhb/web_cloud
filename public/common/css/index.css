@@ -1,0 +1,149 @@
+html, body{
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  height: 100%;
+}
+
+body {
+    left: 0;
+    margin: 0;
+    position: relative;
+    margin: 0px;
+}
+
+.navbar {
+  top:0;
+  position: fixed;
+  z-index: 99;
+}
+
+.apb-nav {
+  position: fixed;
+  width:100%;
+  overflow: auto;
+  background-color: #fff;
+  z-index: 99;
+}
+
+.apb-logo{
+  padding-top: 15px;
+  font-weight: 400;
+  width: 200px;
+  height:64px;
+  background: #0089Ec;
+  float: left;
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.apb-logo a{
+    color: #fff !important;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+.apb-nav-box{
+  border-bottom: 1px #ddd solid;
+  padding: 21px;
+  height: 64px;
+  margin-left: 200px;
+  padding-left: 30px;
+  color: #0089Ec;
+  overflow: auto;
+}
+
+.apb-nav-text{
+  font-size: 1.2em;
+  display: inline-block;
+}
+
+.apb-nav-tool{
+  padding-right: 5px;
+  float: right;
+  display: inline-block;
+}
+
+.apb-nav-tool a{
+  margin-right: 30px;
+  color: #0089Ec;
+}
+
+.apb-side{
+  z-index: 98;
+  float: left;
+  padding-top: 50px;
+  width: 200px;
+  height: 100%;
+  background-color: #313131;
+  position:fixed;
+}
+
+.apb-side .apb-a{
+   font-size: 1em;
+   display: block;
+   letter-spacing: 1px;
+ }
+
+a:hover, a:focus {
+   color: #fff;
+   text-decoration: none;
+ }
+
+
+ .apb-a{
+  border-left: 4px solid #313131;
+  color:#bbb;
+  padding: 15px 30px;
+}
+
+.apb-a:hover{
+  border-left: 4px solid #ddd;
+
+  color: #ddd;
+}
+
+
+.current{
+  border-left: 4px solid #ddd;
+  background-color: #414141;
+  color: #fff;
+}
+
+.apb-badge{
+    width: 18px;
+    height: 18px;
+    position: relative;
+    top: -10px;
+    margin: 0 -.8em;
+    border-radius: 9px;
+    color: #fff;
+    background-color: #f96868;
+    padding: 3px;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.apb-page {
+  z-index: -1;
+  margin-top:100px;
+  margin-left:200px;
+}
+
+.success {
+  background-color: #66CC66;
+}
+
+.error {
+  background-color: #DC143C;
+}
+
+.info {
+  background-color: #F4DB60;
+}

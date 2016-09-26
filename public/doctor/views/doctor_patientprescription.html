@@ -1,0 +1,27 @@
+	<!--<div ng-controller='NavController as tab' ng-include src="'/partials/navbar/navbar_doctor.html'"></div>-->
+
+	<div class="row" style="margin: auto">
+		<div class="col-md-3">
+			<h3 id="patientlist-title">Patients List</h3>
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Search for a patient">
+				<span class="input-group-btn">
+	          <button class="btn btn-default" type="button">Search</button>
+	        </span>
+			</div>
+
+			<div class="list-group" id="patient_names">
+			</div>
+		</div>
+
+		<div class="col-md-8">
+			<div class="list-group" id="patient_descriptions">
+			</div>
+		</div>
+
+	</div>
+
+	<script src="doctor/js/doctor_patientprescription.js"></script>
+	<link rel="stylesheet" href="doctor/css/doctor_patientprescription.css">
+
+</html>

@@ -4,7 +4,6 @@ angular.module('app')
 
 
       $scope.register = function () {
-        console.log('called')
         if ($scope.password !== $scope.password_confirm) {
           alert('Passwords do not match!');
         }
@@ -22,7 +21,14 @@ angular.module('app')
           hospitalCity: $scope.hospitalCity
         };
 
-        SignUpService.saveNewUser(user, $scope.accountType, additionalInfo);
+        SignUpService.saveNewUser(user, $scope.accountType, additionalInfo)
+          .success(function(res) {
+            //Go To Login Page
+            console.log(res.token);
+          })
+          .error(function(error) {
+            console.log(error.message);
+          });
       };
 
       $scope.reset = function () {

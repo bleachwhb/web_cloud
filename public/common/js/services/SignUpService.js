@@ -1,16 +1,21 @@
 angular.module('app')
   .factory('SignUpService', function ($rootScope, APIUtility) {
-    console.log('SignUpService!');
+
     return {
       saveNewUser: function (user, accountType, addtionalInfo) {
+        var deferred = APIUtility.defer();
         if (accountType === "Patient") {
           APIUtility.POST('/patient', user)
-            .success(function (data, status, headers, config) {
-              console.log(data);
-            })
-            .error(function (data, status, header, config) {
-              console.log(data);
+            .then(function (data, status, headers, config) {
+              return deferred.resolve({
+                token: 'qwqwqe'
+              });
+            }, function (data, status, header, config) {
+              return deferred.reject({
+                message: data.mesage
+              })
             });
+          return deferred.promise;
         }
         else if (accountType === "Doctor") {
           APIUtility.POST('/doctor', user)

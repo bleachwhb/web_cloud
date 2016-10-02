@@ -9,14 +9,31 @@ angular.module('app')
       })
       .when('/login', {
           templateUrl : 'common/views/login.html',
-          controller  : 'LoginController'
+          controller  : 'LoginController',
+          resolve: {
+              service: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load([{
+                      name: 'app',
+                      files: ['/common/js/services/LoginService.js']
+                  }]);
+              }]
+          }
       })
       .when('/home', {
           templateUrl : 'common/views/home.html'
       })
       .when('/signup', {
           templateUrl : 'common/views/signup.html',
-          controller: 'SignupController'
+          controller: 'SignupController',
+          resolve: {
+              service: ['$ocLazyLoad', function($ocLazyLoad) {
+                  return $ocLazyLoad.load([{
+                      name: 'app',
+                      files: ['/common/js/services/SignUpService.js']
+                  }]);
+              }]
+          }
+
       })
       .when('/forgotpassword', {
           templateUrl : 'common/views/forgotpassword.html',

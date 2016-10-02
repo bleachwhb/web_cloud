@@ -1,5 +1,9 @@
-# npm mudules
+# npm modules
 node_modules
+npm-debug.log
+
+# bower modules
+bower_components
 
 # IDE
 .idea

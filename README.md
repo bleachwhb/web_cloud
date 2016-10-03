@@ -1,55 +1,78 @@
-#Adherence Pill Project
+## Adherence Pill Project
+Right now this project needed to split the [Parse](http://parseplatform.github.io/docs/js/guide/) API, switch to RESTful APIs which is another [project](https://github.com/AdherencePillProject/WebSide). There is already an online server running on [here](http://http://129.105.36.93:5000/test) for test purpose. The configuration could be found at `app.js`:
+```
+$rootScope.appId = 'myAppId';
+$rootScope.apiServer = 'http://localhost:5000';
+// $rootScope.apiServer = 'http://129.105.36.93:5000';  
+```
+Uncomment the last line and comment out the second line to switch the server address from local to remote(in case you didn't run a local server).   
+Previously all the interaction with the database were done inside this project by calling Parse API which is response for communicating with the database----[MongoDB](https://docs.mongodb.com/). However it's not secure, the app key and master key are written in javascript files then transmitted to user's computer, which means any user can have full access to the database through Parse API with the keys. So take register user for example:   
+```
+Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
+newUser = new Parse.User();
+newUser.set("username", user.email);
+newUser.set("password", user.password);
+newUser.set("email", user.email);
+newUser.set("phone", user.phone);
+newUser.set("firstname", user.firstname);
+newUser.set("lastname", user.lastname);
+```
+Instead of that, we call `POST http://server_ip/user {username, password, email, phone firstname, lastname}`.
+Details are here:
+- Controllers call services, see `common/js/controller.js/SignUpController.js`:
+```
+SignUpService.saveNewUser(user, $scope.accountType, additionalInfo)
+  .success(function(res) {
+    //Go To Login Page
+  })
+  .error(function(error) {
+    //Handle error
+  });
+```
+- Services call http request, see `common/js/services/SignUpService.js`:
+```
+saveNewUser: function (user, accountType, addtionalInfo) {
+    APIUtility.POST('/patient', user)
+      .then(function (data, status, headers, config) {
+        return 'Success';
+      }, function (data, status, header, config) {
+        return 'Error';
+      });
+  }
+  ```
+- $http make the real http request, see `'common/js/services/Utility.js'`:
+```
+var appId = $rootScope.appId;
+var host = $rootScope.apiServer;
+var config = {
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Parse-Application-Id': appId
+  }
+};
+...
+POST: function (path, data) {
+  return $http.post(host + path, data, config)
+}
+```
 
-Website  URL: adherencepillproject.parseapp.com
 
-Please read the following for instructions https://www.dropbox.com/s/njjb6xvu0grbd7s/AdherenceProjectDocumentation.docx?dl=0
-
-
-## Remaining issues:
-
-### Common User
-
-1. <del>Not able to sign up as pharmacy
-2. Problm in uploading profile image does not immediately show up
-3. Should restrict the image size
-4. The position of box for 'upload image'
-5. No notification for re-signup with the same name
-6. Reset does not work
-7. In Inbox page, we only have data in 'inbox', none in 'send'
-
-### Doctor
-
-1. <del>In the doctor_patientprescription page, clicking a patient leads to nowhere.
-2. In the same page, search does not work.
-3. <del>Prescription submission does not work, or not show the data.
-4. <del>Static data in doctor home page
-5. <del>In doctor_patientprescription page, toggleActive is useless
-6. UpdateDosage function is currently not useful.
-
-### Patient
-
-1. Static data in patient/appointment page
-2. <del>No display for prescription
-
-continue...
-
-
-# Typical Github Work Flow  
-## 1. Get the latest code  
+## Typical Github Work Flow  
+#### 1. Get the latest code  
 ```
 git pull origin master
 ```
-## 2. Create your feature branch  
+#### 2. Create your feature branch  
 ```
 git checkout -b BRANCH_NAME   
 ```
-## 3. Make changes
+#### 3. Make changes
 1. Edit files
 2. Check file status: `git status`
 3. Add changed files to buffer: `git add PATH_TO_FILE`
 4. Commit changes: `git commit -m COMMIT_MESSAGE`  
 
-## 4. After couple of commits, push to Github  
+#### 4. After couple of commits, push to Github  
 Remember to retrieve latest code once again
 ```
 git pull origin master
@@ -59,13 +82,17 @@ Then push to remote
 git push origin BRANCH_NAME
 ```
 
-## 5. Go to [repo](https://github.com/AdherencePillProject/web_cloud)
-### - Click `Compare & pull request`[Button](https://www.drupal.org/files/pull_request_test_highlighted.png)  
+#### 5. Go to [repo](https://github.com/AdherencePillProject/web_cloud)
+##### - Click `Compare & pull request`
+<img src="https://www.drupal.org/files/pull_request_test_highlighted.png" width="500px">  
 
-### - Choose correct base and compare branch ![Compare](https://help.github.com/assets/images/help/branch/comparing_branches.png)  
+##### - Choose correct base and compare branch
+<img src="https://help.github.com/assets/images/help/branch/comparing_branches.png" width="400px">  
 
-### - Click `Create pull request` ![Pull Request](https://help.github.com/assets/images/help/pull_requests/pull-request-review-page.png)  
+##### - Click `Create pull request`
+<img src="https://help.github.com/assets/images/help/pull_requests/pull-request-review-page.png" width="500px">  
 
-### - If all green, click `Merge pull request`![Merge](https://help.github.com/assets/images/help/pull_requests/pullrequest-mergebutton.png)  
+##### - If all green, click `Merge pull request`
+<img src="https://help.github.com/assets/images/help/pull_requests/pullrequest-mergebutton.png" width="400px">  
 
-### - Done!
+##### - Done!

@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('InboxController', ['$rootScope', '$scope', function($rootScope, $scope) {
+  .controller('InboxController', ['$rootScope', '$scope', function ($rootScope, $scope) {
 
     $scope.messages = [];
 
@@ -17,14 +17,14 @@ angular.module('app')
       query.include("sender");
       query.include("addressee");
       query.find({
-        success: function(results) {
-          $scope.$apply(function() {
+        success: function (results) {
+          $scope.$apply(function () {
             $scope.messages = results;
           });
         },
-        error: function(error) {
-            alert("Error: " + error.code + " " + error.message);
-          }
+        error: function (error) {
+          alert("Error: " + error.code + " " + error.message);
+        }
       });
     }
 
@@ -47,7 +47,7 @@ angular.module('app')
       var query = new Parse.Query(Parse.User);
       query.equalTo("username", addresseeName);
       query.first({
-        success: function(addressee) {
+        success: function (addressee) {
           var message = new Message();
 
           message.set("subject", subject);
@@ -64,7 +64,7 @@ angular.module('app')
             }
           });
         },
-        error: function(addressee, err) {
+        error: function (addressee, err) {
           alert("Error: Invalid recipient!");
         }
       });
@@ -75,9 +75,9 @@ angular.module('app')
     // });
 
 
-    $scope.update = function(composition) {
-        $scope.master = angular.copy(composition);
-        console.log($scope.master)
-        $scope.send(composition.subject, composition.mailBody, composition.addressee)
-      };
+    $scope.update = function (composition) {
+      $scope.master = angular.copy(composition);
+      console.log($scope.master)
+      $scope.send(composition.subject, composition.mailBody, composition.addressee)
+    };
   }]);

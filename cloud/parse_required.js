@@ -36,5 +36,6 @@ function login(username, password) {
 		},
 		error: function(user, error) {
 			alert("Invalid username/password combination");
+		}
 	});
 }

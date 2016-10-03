@@ -4,26 +4,26 @@
  * and open the template in the editor.
  */
 
-$(function(){
-	$('#page2').hide();
-	taskState([100,50,20,null]);
+$(function () {
+  $('#page2').hide();
+  taskState([100, 50, 20, null]);
 });
 
 function taskState(stateArray) {
-	var threshold = 50;
-	var list = $('.list');
+  var threshold = 50;
+  var list = $('.list');
 
-	var newClass;
-	stateArray.forEach(function(value,i) {
-		if(value==null)
-			newClass = 'list uncheck';
-		else if (value==100)
-			newClass = 'list done';
-		else if (value >= threshold)
-			newClass = 'list halfdone';
-		else
-			newClass = 'list notdone';
+  var newClass;
+  stateArray.forEach(function (value, i) {
+    if (value == null)
+      newClass = 'list uncheck';
+    else if (value == 100)
+      newClass = 'list done';
+    else if (value >= threshold)
+      newClass = 'list halfdone';
+    else
+      newClass = 'list notdone';
 
-		$(list[i]).attr('class', newClass);
-	});
+    $(list[i]).attr('class', newClass);
+  });
 }

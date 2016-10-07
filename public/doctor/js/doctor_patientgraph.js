@@ -1,7 +1,7 @@
 angular.module('app')
 .controller('patient_graphCtrl', function($scope) {
     console.log('entered controller');
-    Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
+    // Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
     $scope.Name = "aaaa"
     $scope.sortedName = []
     //window.onload = function () {
@@ -10,7 +10,7 @@ angular.module('app')
     var namesToIndices = {};
 
     //whether the prescription is part of the same patient or not
-    var sameDiv = false;
+    var sameDiv = false; 
 
     //keeps track of which prescription number we are on
     var prescriptionNum = 0;
@@ -92,7 +92,7 @@ angular.module('app')
     // }
 
     $scope.getPatientsInfo2 = function() {
-        Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
+        // Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
 
         console.log("AAAA")
         var patientList = Parse.Object.extend("Patient");
@@ -155,7 +155,7 @@ angular.module('app')
 
 
     $scope.patientClicked = function(pillName) {
-    Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
+    // Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
 
       $scope.chart.options.data = [];
       $scope.chart.options.title.text = pillName + "'s Weekly Graph Report";

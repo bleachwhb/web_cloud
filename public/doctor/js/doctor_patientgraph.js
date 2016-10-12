@@ -1,7 +1,6 @@
 angular.module('app')
 .controller('patient_graphCtrl', function($scope) {
     console.log('entered controller');
-    Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
     $scope.Name = "aaaa"
     $scope.sortedName = []
     //window.onload = function () {
@@ -92,7 +91,6 @@ angular.module('app')
     // }
 
     $scope.getPatientsInfo2 = function() {
-        Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
 
         console.log("AAAA")
         var patientList = Parse.Object.extend("Patient");
@@ -119,7 +117,7 @@ angular.module('app')
                             var userAndName = {
                                 lastName: lastname,
                                 name: name,
-                                user: user``
+                                user: user
                             };
                             unsortedNames.push(userAndName);
                         }
@@ -155,7 +153,6 @@ angular.module('app')
 
 
     $scope.patientClicked = function(pillName) {
-    Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
 
       $scope.chart.options.data = [];
       $scope.chart.options.title.text = pillName + "'s Weekly Graph Report";

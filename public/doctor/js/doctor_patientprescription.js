@@ -26,6 +26,7 @@ function toggleActive(element) {
 	//element.id[4] because id is in form "name(num here)" and the number is the 5th character
 	var num = parseInt(element.id[4]);
 
+
 	var currActiveUser = namesToIndices[num];
 
 	getPrescriptions(currActiveUser);
@@ -35,6 +36,37 @@ function toggleActive(element) {
 
 }
 
+//searchPatient()
+//parameters:patientname
+//function:search the patient in the input box 
+function searchPatient()
+{
+	var newSearch=document.createElement("Searchid");
+	var j;
+
+	for (var i = 0; i < Object.keys(namesToIndices).length; i++) 
+	{
+		var patientnamesearch=document.getElementById("SearchText").value;
+	//	console.log(namesToIndices[i]);
+		var user=namesToIndices[i];
+		var indice=user.get("firstname") + " " + user.get("lastname") ;
+		console.log(indice);
+		if(patientnamesearch==indice)
+		{
+
+			getPrescriptions(namesToIndices[i]);
+		j = i;
+		break;
+		}
+	}
+	var actives = document.getElementsByClassName("list-group-item active");
+	for (var i = 0; i < actives.length; i++) {
+		actives[i].className = "list-group-item";
+	}
+
+    var dd = document.getElementById("name"+j);
+	dd.className = "list-group-item active";
+}
 
 //getPatientsInfo()
 //parameters: none, called by main()
@@ -186,6 +218,15 @@ function createNameDiv(patientName, count) {
 
 }
 
+//noPrescription(patiendID)
+//parameters:patientID
+//function:tell the doctor that the patient doesn't have a prescription
+
+function noPrescription()
+{
+ var noPre=document.getElementById("patient_descriptions");
+			noPre.innerHTML="<button type='button' id='addBtn' class='btn btn-primary'><i class='fa fa-plus'></i> Add Prescription</button><br/> No prescription<br/>";
+}
 
 //getPrescriptions()
 //parameters: user
@@ -219,7 +260,7 @@ function getPrescriptions(user) {
 	prescriptionQuery.find().then(function(results) {
 		//if they have no prescriptions associated with them
 		if (results.length == 0) {
-			noPrescriptionDiv(patientID);
+           noPrescription();
 			return;
 		}
 
@@ -513,6 +554,12 @@ function addPrescriptionToParse(prescription){
 						{
 							success: function(p){
 								alert("yay");
+								var actives = document.getElementsByClassName("list-group-item active");
+								//getPrescriptions(actives);
+								console.log(actives[0]);
+								var num = parseInt(actives[0].id[4]);
+								var currActiveUser = namesToIndices[num];
+								getPrescriptions(currActiveUser);
 							},
 							error: function(e){
 								alert(e.message);
@@ -528,6 +575,7 @@ function addPrescriptionToParse(prescription){
 				alert(error.message);
 			}
 		});
+
 	}
 
 	//addPrescription()
@@ -675,6 +723,7 @@ function addPrescriptionToParse(prescription){
 
 
 		//ADD FUNCTIONALITY TO ADD NEW PRESCRIPTION HERE
+		 conso
 
 	}
 
@@ -714,11 +763,12 @@ function addPrescriptionToParse(prescription){
 
 						//we have no more prescriptions, clear div
 						if ($("#patient_descriptions > a").length <= 0) {
-							noPrescriptionDiv(patient);
+							//noPrescriptionDiv(patient);
+							noPrescription();
 						}
 
 						//reload the webpage to show new prescription list
-						location.reload();
+						//location.reload();
 					},
 					error: function(myObject, error) {
 						console.log("Error in retrieving scheduleID in updateDosage: " + error.code + " " + error.message);

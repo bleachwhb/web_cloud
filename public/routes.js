@@ -14,7 +14,7 @@ angular.module('app')
               service: ['$ocLazyLoad', function($ocLazyLoad) {
                   return $ocLazyLoad.load([{
                       name: 'app',
-                      files: ['/common/js/services/LoginService.js']
+                      files: ['/common/js/services/APIService.js']
                   }]);
               }]
           }
@@ -29,7 +29,7 @@ angular.module('app')
               service: ['$ocLazyLoad', function($ocLazyLoad) {
                   return $ocLazyLoad.load([{
                       name: 'app',
-                      files: ['/common/js/services/SignUpService.js']
+                      files: ['/common/js/services/APIService.js']
                   }]);
               }]
           }
@@ -79,7 +79,7 @@ angular.module('app')
     //   .when('/doctor/patientView', {
     //       templateUrl: 'doctor/views/doctor_patientgraph.html'
     //   })
-    
+
       .otherwise({
           redirectTo  : '/'
       });

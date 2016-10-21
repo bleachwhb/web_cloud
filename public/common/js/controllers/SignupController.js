@@ -1,6 +1,6 @@
 angular.module('app')
   .controller('SignupController',
-    ['$rootScope', '$scope', 'User', 'UI', '$location', 'SignUpService', function ($rootScope, $scope, User, UI, $location, SignUpService) {
+    ['$rootScope', '$scope', 'User', 'UI', '$location', 'APIService', function ($rootScope, $scope, User, UI, $location, APIService) {
 
 
       $scope.register = function () {
@@ -21,13 +21,14 @@ angular.module('app')
           hospitalCity: $scope.hospitalCity
         };
 
-        SignUpService.saveNewUser(user, $scope.accountType, additionalInfo)
+        APIService.SignUp(user, $scope.accountType, additionalInfo)
           .success(function(res) {
             //Go To Login Page
-            console.log(res.token);
+            console.log(res.sessionToken);
+            $rootScope.sessionToken = res.sessionToken;
           })
           .error(function(error) {
-            console.log(error.message);
+            alert(error.code + ' ' + error.message);
           });
       };
 

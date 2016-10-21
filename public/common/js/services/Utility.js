@@ -2,15 +2,19 @@ angular.module('app')
   .factory('APIUtility', function ($rootScope, $http, $q) {
     var appId = $rootScope.appId;
     var host = $rootScope.apiServer;
+    var sessionToken = $rootScope.sessionToken;
     var config = {
       headers: {
         'Content-Type': 'application/json',
         'X-Parse-Application-Id': appId
       }
     };
+    if (sessionToken) {
+      config.header['X-Parse-Session-Token'] = sessionToken;
+    }
     return {
       GET: function (path, data) {
-        return $http.post(host + path, data, config)
+        return $http.get(host + path, data, config)
       },
       POST: function (path, data) {
         return $http.post(host + path, data, config)

@@ -27,7 +27,7 @@
       </div>
     </div>
   </nav>
-  <div class="apb-side" ng-show="currentUser.get('patientPointer')">
+  <div class="apb-side" ng-show="user.type%2===1">
     <a href="#/patient/home" class='apb-a'>
       <i class="fa fa-stethoscope"></i> Patient Home</a>
     <a href="#/patient/MedCabinet" class='apb-a'>
@@ -35,7 +35,7 @@
     <a href="#/patient/appointments" class='apb-a' >
       <i class="fa fa-calendar-check-o"></i> Appointments</a>
   </div>
-  <div class="apb-side" ng-show="currentUser.get('doctorPointer')">
+  <div class="apb-side" ng-show="(user.type/10)%2===1">
     <a href="#/doctor/home" class='apb-a'>
       <i class="fa fa-stethoscope"></i> Doctor Home</a>
     <a href="#/doctor/docpatient" class='apb-a'>

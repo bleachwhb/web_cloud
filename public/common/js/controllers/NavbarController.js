@@ -1,6 +1,6 @@
 angular.module('app')
   .controller('NavbarController', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
-    console.log($location.path())
+    console.log($rootScope.user);
     $scope.logOut = function () {
       Parse.User.logOut({
         success: function () {

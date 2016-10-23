@@ -73,7 +73,8 @@
   </head>
 
   <body>
-    <div ng-include="'common/views/navbar.html'" ng-if="location.path() !== '/login' && location.path() !== '/signup'"></div>
+    <div ng-include="'common/views/navbar.html'"
+         ng-if="location.path() !== '/login' && location.path() !== '/signup' && user"></div>
     <div ng-view class="apb-page"></div>
   </body>
 </html>

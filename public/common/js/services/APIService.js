@@ -7,34 +7,32 @@ angular.module('app')
         if (accountType === "Patient") {
           APIUtility.POST('/patient', user)
             .then(function (data, status, headers, config) {
-              return deferred.resolve({
-                sessionToken: data.data.sessionToken
-              });
+              return deferred.resolve(data.data);
             }, function (data, status, header, config) {
-              return deferred.reject({
-                code: data.data.code,
-                message: data.data.message
-              })
+              return deferred.reject(data.data);
             });
           return deferred.promise;
         }
         else if (accountType === "Doctor") {
+          user['hospitalName'] = addtionalInfo.hospitalName;
+          user['hospitalAddress'] = addtionalInfo.hospitalAddress;
+          user['hospitalCity'] = addtionalInfo.hospitalCity;
           APIUtility.POST('/doctor', user)
-            .success(function (data, status, headers, config) {
-              console.log(data);
-            })
-            .error(function (data, status, header, config) {
-              console.log(data);
+            .then(function (data, status, headers, config) {
+              return deferred.resolve(data.data);
+            }, function (data, status, header, config) {
+              return deferred.reject(data.data);
             });
+          return deferred.promise;
         }
         else if (accountType === "Pharmacy") {
           APIUtility.POST('/pharmacy', user)
-            .success(function (data, status, headers, config) {
-              console.log(data);
-            })
-            .error(function (data, status, header, config) {
-              console.log(data);
+            .then(function (data, status, headers, config) {
+              return deferred.resolve(data.data);
+            }, function (data, status, header, config) {
+              return deferred.resolve(data.data);
             });
+          return deferred.promise;
         }
 
       },

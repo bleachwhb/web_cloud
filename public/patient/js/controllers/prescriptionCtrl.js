@@ -44,7 +44,7 @@ angular
 
     var query = new Parse.Query(Parse.Object.extend("Prescription"));
 
-    var patientID = $rootScope.currentUser.get("patientPointer");
+    var patientID = "zRHovNfcMv";
 	query.equalTo("patientID", {
 		__type: "Pointer",
 		className: "Patient",

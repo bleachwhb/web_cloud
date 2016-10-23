@@ -7,8 +7,11 @@ body{
 .input-group{
   width: 300px !important;
   height: 30px !important;
-
-
+}
+.input-group-date {
+    position: relative;
+    display: table;
+    border-collapse: separate;
 }
 
 #custom-search-input{
@@ -175,6 +178,6 @@ body{
 /*.aptmt-history{*/
 /*  text-align: center;*/
 /*  float: left;*/
-  margin-left: 16%;
+  /*margin-left: 16%;*/
 /*  margin-right: 20%;*/
-}
+/*}*/

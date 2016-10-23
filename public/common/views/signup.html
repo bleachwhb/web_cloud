@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <title>Sign Up</title>
-    <script type="text/javascript" src="common/js/home.js"></script>
-    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <!--<script type="text/javascript" src="common/js/home.js"></script>-->
+    <!--<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
     <link rel="stylesheet" href="common/css/my.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" type="text/less" href="common/css/home.less">
 </head>
@@ -39,7 +39,7 @@
             <div class="control-group">
               <div class="row">
                 <div class="col-md-6">
-                  <label class="control-label" for="gender">Sex</label>
+                  <label class="control-label">Sex</label>
                   <div class="radio">
                     <label>
                         <input type="radio" name="gender" value="Male" ng-model="gender" checked>
@@ -53,9 +53,20 @@
                     </label>
                   </div>
                 </div>
+
                 <div class="col-md-6">
-                  <label class="control-label" for="date">Date of Birth</label>
+                  <label class="control-label">Date of Birth</label>
+                  <div class="controls">
+                    <div class="input-group-date">
+                      <input type="text" class="form-control" uib-datepicker-popup ng-model="dt"
+                             is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
 
             <div class="control-group">
@@ -65,7 +76,7 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="accountType">Account Type</label>
+              <label class="control-label">Account Type</label>
               <div class="radio">
                 <label>
                     <input type="radio" name="accountType" value="Patient" ng-model="accountType" checked />

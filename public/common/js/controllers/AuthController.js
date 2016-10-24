@@ -11,6 +11,7 @@ angular.module('app')
         APIService.GetUser()
           .success(function(user) {
             $rootScope.user = user;
+
             if ($rootScope.beforeURL === undefined) {
               if (user.type%2 === 1) {
                 $location.path("/patient/home");

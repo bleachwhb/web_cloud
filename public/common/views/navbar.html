@@ -5,15 +5,17 @@
     </div>
     <div class="apb-nav-box">
       <div class="apb-nav-text">
-        Welcome, {{currentUser.get('firstname')}}
+        Welcome, {{user.firstname}}
       </div>
       <div class="apb-nav-tool">
-        <div ng-show="currentUser.get('patientPointer')">
-          <a href="#/patient/profile"><i class="fa fa-user"></i>&nbsp {{currentUser.get('firstname')}} {{currentUser.get('lastname')}}</a>
-        </div>
-        <div ng-show="currentUser.get('doctorPointer')">
-          <a href="#/doctor/profile"><i class="fa fa-user"></i>&nbsp {{currentUser.get('firstname')}} {{currentUser.get('lastname')}}</a>
-        </div>
+        <a href="#/patient/profile" ng-show="user.type%2===1">
+          <i class="fa fa-user"></i>
+          &nbsp {{currentUser.get('firstname')}} {{user.lastname}}
+        </a>
+        <a href="#/doctor/profile" ng-show="(user.type/10)%2===1">
+          <i class="fa fa-user"></i>
+          &nbsp {{currentUser.get('firstname')}} {{user.lastname}}
+        </a>
         <a href="#/inbox">
           <i class="fa fa-envelope"></i>
           <!-- <span class="apb-badge">1</span> -->
@@ -27,7 +29,7 @@
       </div>
     </div>
   </nav>
-  <div class="apb-side" ng-show="currentUser.get('patientPointer')">
+  <div class="apb-side" ng-show="user.type%2===1">
     <a href="#/patient/home" class='apb-a'>
       <i class="fa fa-stethoscope"></i> Patient Home</a>
     <a href="#/patient/MedCabinet" class='apb-a'>
@@ -35,7 +37,7 @@
     <a href="#/patient/appointments" class='apb-a' >
       <i class="fa fa-calendar-check-o"></i> Appointments</a>
   </div>
-  <div class="apb-side" ng-show="currentUser.get('doctorPointer')">
+  <div class="apb-side" ng-show="(user.type/10)%2===1">
     <a href="#/doctor/home" class='apb-a'>
       <i class="fa fa-stethoscope"></i> Doctor Home</a>
     <a href="#/doctor/docpatient" class='apb-a'>

@@ -18,7 +18,10 @@
     "angular-route": "~1.5.5",
     "bootstrap": "~3.3.6",
     "angular-route-styles": "*",
-    "oclazyload": "^1.0.9"
+    "oclazyload": "^1.0.9",
+    "angular-bootstrap": "^2.2.0",
+    "angular-cookies": "^1.5.8",
+    "bootstrap-ui-datetime-picker": "^2.4.3"
   },
   "resolutions": {
     "angular": "1.5.5"

@@ -15,6 +15,7 @@
 
     <!-- CSS Dependencies -->
     <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+    <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="common/css/index.css" media="screen" title="no title" charset="utf-8">
@@ -32,10 +33,13 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-route-styles/route-styles.js"></script>
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <script src="bower_components/oclazyload/dist/ocLazyLoad.require.js"></script>
     <script src="bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
 
     <!-- Common JS -->
     <script src='common/js/nav.js'></script>
@@ -48,8 +52,10 @@
     <script src="common/js/services/models/Doctor.js"></script>
     <script src="common/js/services/models/User.js"></script>
     <script src="common/js/services/models/Patient.js"></script>
+    <script src="common/js/services/APIService.js"></script>
 
     <!-- Controllers -->
+    <script src="common/js/controllers/AuthController.js"></script>
     <script src="common/js/controllers/NavbarController.js"></script>
     <script src="common/js/controllers/LoginController.js"></script>
     <script src="common/js/controllers/SignupController.js"></script>
@@ -68,7 +74,8 @@
   </head>
 
   <body>
-    <div ng-include="'common/views/navbar.html'" ng-if="location.path() !== '/login' && location.path() !== '/signup'"></div>
+    <div ng-include="'common/views/navbar.html'"
+         ng-if="location.path() !== '/login' && location.path() !== '/signup' && user"></div>
     <div ng-view class="apb-page"></div>
   </body>
 </html>

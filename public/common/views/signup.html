@@ -37,18 +37,34 @@
             </div>
 
             <div class="control-group">
-              <label class="control-label" for="gender">Sex</label>
-              <div class="radio">
-                <label>
-                    <input type="radio" name="gender" value="Male" ng-model="gender" checked>
-                    Male
-                </label>
-              </div>
-              <div class="radio">
-                <label>
-                    <input type="radio" name="gender" value="Female" ng-model="gender">
-                    Female
-                </label>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="control-label">Sex</label>
+                  <div class="radio">
+                    <label>
+                        <input type="radio" name="gender" value="Male" ng-model="gender" checked>
+                        Male
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                        <input type="radio" name="gender" value="Female" ng-model="gender">
+                        Female
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="control-label" for="date">Date of Birth</label>
+                  <div class="controls">
+                    <div class="input-group-date">
+                      <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -59,7 +75,7 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="accountType">Account Type</label>
+              <label class="control-label">Account Type</label>
               <div class="radio">
                 <label>
                     <input type="radio" name="accountType" value="Patient" ng-model="accountType" checked />
@@ -80,25 +96,23 @@
               </div>
             </div>
 
-            <div ng-switch="accountType">
-              <div ng-switch-when="Doctor">
-                <div class="control-group">
-                  <label class="control-label" for="hospitalName">Hospital Name</label>
-                  <div class="controls">
-                    <input ng-model="hospitalName" type="text" id="hospitalName" name="hospitalName" placeholder="Hospital Name" class="form-control input-lg" />
-                  </div>
+            <div ng-show="accountType==='Doctor'">
+              <div class="control-group">
+                <label class="control-label">Hospital Name</label>
+                <div class="controls">
+                  <input ng-model="hospitalName" type="text" placeholder="Hospital Name" class="form-control input-lg" />
                 </div>
-                <div class="control-group">
-                  <label class="control-label" for="hospitalAddress">Hospital Address</label>
-                  <div class="controls">
-                    <input ng-model="hospitalAddress" type="text" id="hospitalAddress" name="hospitalAddress" placeholder="Hospital Address" class="form-control input-lg" />
-                  </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Hospital Address</label>
+                <div class="controls">
+                  <input ng-model="hospitalAddress" type="text" placeholder="Hospital Address" class="form-control input-lg" />
                 </div>
-                <div class="control-group">
-                  <label class="control-label" for="hospitalCity">Hospital City</label>
-                  <div class="controls">
-                    <input ng-model="hospitalCity" type="text" id="hospitalCity" name="hospitalCity" placeholder="Hospital City" class="form-control input-lg" />
-                  </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label">Hospital City</label>
+                <div class="controls">
+                  <input ng-model="hospitalCity" type="text" placeholder="Hospital City" class="form-control input-lg" />
                 </div>
               </div>
             </div>

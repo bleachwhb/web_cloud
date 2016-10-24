@@ -1,11 +1,16 @@
 'use strict';
 angular
 .module('app')
-.controller('prescriptionCtrl', ['$scope', '$rootScope', 'Patient', function($scope, $rootScope, Patient) {
+.controller('prescriptionCtrl', ['$scope', '$rootScope', '$location', 'Patient',
+	function($scope, $rootScope, $location, Patient) {
     $scope.checked = false;// if the patient have taken this pill: showing checked span
     $scope.unchecked = !$scope.checked;// else showing unchecked;
     // console.log($scope.unchecked);
-    
+
+    if ($rootScope.sessionToken === undefined) {
+    	$rootScope.beforeURL = $location.path();
+			$location.path("/");
+		}
     // funtion: addZero
     // add 0 to one digit numbers to modify the format of time
     var addZero = function(i) {
@@ -39,7 +44,7 @@ angular
 
     var query = new Parse.Query(Parse.Object.extend("Prescription"));
 
-    var patientID = $rootScope.currentUser.get("patientPointer");
+    var patientID = "zRHovNfcMv";
 	query.equalTo("patientID", {
 		__type: "Pointer",
 		className: "Patient",

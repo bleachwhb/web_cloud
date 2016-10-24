@@ -2,6 +2,10 @@ angular.module('app')
     .config(function($routeProvider) {
       $routeProvider
         // route for the home page
+      .when('/', {
+        templateUrl: 'common/views/loading.html',
+        controller: 'AuthController'
+      })
       .when('/inbox', {
             templateUrl : 'common/views/inbox.html',
             controller  : 'InboxController',
@@ -9,15 +13,15 @@ angular.module('app')
       })
       .when('/login', {
           templateUrl : 'common/views/login.html',
-          controller  : 'LoginController',
-          resolve: {
-              service: ['$ocLazyLoad', function($ocLazyLoad) {
-                  return $ocLazyLoad.load([{
-                      name: 'app',
-                      files: ['/common/js/services/LoginService.js']
-                  }]);
-              }]
-          }
+          controller  : 'LoginController'
+          // resolve: {
+          //     service: ['$ocLazyLoad', function($ocLazyLoad) {
+          //         return $ocLazyLoad.load([{
+          //             name: 'app',
+          //             files: ['/common/js/services/APIService.js']
+          //         }]);
+          //     }]
+          // }
       })
       .when('/home', {
           templateUrl : 'common/views/home.html'
@@ -29,7 +33,7 @@ angular.module('app')
               service: ['$ocLazyLoad', function($ocLazyLoad) {
                   return $ocLazyLoad.load([{
                       name: 'app',
-                      files: ['/common/js/services/SignUpService.js']
+                      files: ['/common/js/services/APIService.js']
                   }]);
               }]
           }
@@ -53,7 +57,7 @@ angular.module('app')
       })
       .when('/doctor/home', {
           templateUrl : 'doctor/views/Doctorhome.html',
-          controller  : 'DoctorHomeController',
+          controller  : 'DoctorHomeController'
         //   css : 'doctor/css/doctor_table.css'
       })
       .when('/doctor/docpatient', {
@@ -79,8 +83,8 @@ angular.module('app')
     //   .when('/doctor/patientView', {
     //       templateUrl: 'doctor/views/doctor_patientgraph.html'
     //   })
-    
+
       .otherwise({
-          redirectTo  : '/'
+        redirectTo  : '/'
       });
 });

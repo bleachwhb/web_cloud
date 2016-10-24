@@ -75,3 +75,12 @@
     margin-right: -40px;
     width: 220px;
  }*/
+
+/*===============doctor select============*/
+#doctor-select-dropdown {
+	width: 100%;
+}
+p.input-group {
+	width: 80%;
+	padding-left: 12px;
+}

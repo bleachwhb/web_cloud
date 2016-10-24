@@ -4,93 +4,27 @@
 
 
 <div id="appointments">
-  <h2><i class="fa fa-history"></i>  Appointments History</h2>
+  <h2><i class="fa fa-history"></i>  Appointments</h2>
   <div class="example-wrap">
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>#</th>
+            <!--<th>#</th>-->
             <th>Doctor</th>
             <th>Clinic</th>
-            <th>Admitted For</th>
-            <th>Last Appointment</th>
-            <th>Next Appointment</th>
+            <th>When</th>
+            <th>Where</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>name</td>
-            <td>
-              Clinic
-            </td>
-            <td>
-              concern
-            </td>
-            <td>date</td>
-            <td>date</td>
+          <tr ng-repeat="item in appointments">
+            <td>{{item.doctorFirstName}} {{item.doctorLastName}}</td>
+            <td>{{item.hospitalName}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.hospitalAddress}}, {{item.hospitalCity}}</td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>name</td>
-            <td>
-              Clinic
-            </td>
-            <td>
-              concern
-            </td>
-            <td>date</td>
-            <td>date</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>name</td>
-            <td>
-              Clinic
-            </td>
-            <td>
-              concern
-            </td>
-            <td>date</td>
-            <td>date</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>name</td>
-            <td>
-              Clinic
-            </td>
-            <td>
-              concern
-            </td>
-            <td>date</td>
-            <td>date</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>name</td>
-            <td>
-              Clinic
-            </td>
-            <td>
-              concern
-            </td>
-            <td>date</td>
-            <td>date</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>name</td>
-            <td>
-              Clinic
-            </td>
-            <td>
-              concern
-            </td>
-            <td>date</td>
-            <td>date</td>
-          </tr>
+
         </tbody>
       </table>
     </div>
@@ -98,6 +32,48 @@
 </div>
 
 <div class="col-md-8">
-			<div class="list-group" id="patient_descriptions">
-			</div>
-		</div>
+  <div class="list-group" id="patient_descriptions">
+    <button type='button' id='addBtn' class='btn btn-primary' ng-click="openModal()">
+      <i class='fa fa-plus'></i> Add Appointment
+    </button>
+  </div>
+  <script type="text/ng-template" id="addAppointment.html">
+    <div class="modal-header">
+      <h3 class="modal-title">Add a appointment</h3>
+    </div>
+    <div class="modal-body">
+      <div>
+        <h5>
+          Select a doctor:
+        </h5>
+      </div>
+      <div class="btn-group" uib-dropdown keyboard-nav>
+        <button id="doctor-select-dropdown" type="button" class="btn btn-default" uib-dropdown-toggle>
+          You selected Dr.{{selected.doctor.user.lastname}}<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+          <li role="menuitem" ng-repeat="item in items">
+            <a ng-click="select(item)" href>
+              Name: {{item.user.firstname}} {{item.user.lastname}}
+                &nbsp;&nbsp;&nbsp;&nbsp;Hospital: {{item.hospitalName}}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <h5>Pick a date and time</h5>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <p class="input-group">
+            <input type="text" class="form-control" datetime-picker="MM/dd/yyyy HH:mm" ng-model="selected.date" is-open="isOpen" />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openCalendar()"><i class="fa fa-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="ok()">OK</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+  </script>
+</div>

@@ -49,6 +49,7 @@ angular.module('app')
               sessionToken: data.data.sessionToken
             });
           }, function (data, status, header, config) {
+            console.log(data);
             return deferred.reject({
               code: data.data.code,
               message: data.data.message
@@ -59,6 +60,39 @@ angular.module('app')
       GetUser: function() {
         var deferred = APIUtility.defer();
         APIUtility.GET('/user')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+      GetDoctors: function() {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/doctor')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+      AddAppointment: function(appointment) {
+        var deferred = APIUtility.defer();
+        APIUtility.POST('/patient/appointment', appointment)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+      GetAppointment: function() {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/patient/appointment')
           .then(function (data, status, headers, config) {
             console.log(data);
             return deferred.resolve(data.data);

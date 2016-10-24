@@ -8,6 +8,7 @@ angular.module('app')
         if ($scope.password !== $scope.password_confirm) {
           alert('Passwords do not match!');
         }
+
         var user = {
           email: $scope.email,
           password: $scope.password,
@@ -54,18 +55,18 @@ angular.module('app')
           });
       };
       $scope.reset = function () {
-          $scope.firstname = '';
-          $scope.lastname = '';
-          $scope.sex = '';
-          $scope.dt = null;
-          $scope.phone = '';
-          $scope.accountType = '';
-          $scope.hospitalName = '';
-          $scope.hospitalAddress = '';
-          $scope.hospitalCity = '';
-          $scope.email = '';
-          $scope.password = '';
-          $scope.password_confirm = '';
+        $scope.firstname = '';
+        $scope.lastname = '';
+        $scope.sex = '';
+        $scope.dt = null;
+        $scope.phone = '';
+        $scope.accountType = '';
+        $scope.hospitalName = '';
+        $scope.hospitalAddress = '';
+        $scope.hospitalCity = '';
+        $scope.email = '';
+        $scope.password = '';
+        $scope.password_confirm = '';
       };
       $scope.today = function() {
         $scope.dt = new Date();

@@ -74,6 +74,6 @@ angular.module('app')
         });
     }
 
-    // $scope.getPatientsInfo2();
+    $scope.getPatientsInfo2();
 
 }]);

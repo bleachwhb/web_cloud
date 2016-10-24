@@ -3,6 +3,7 @@ angular.module('app')
     function ($rootScope, $scope, $cookies, $location, APIService) {
       console.log('Auto login...');
       var sessionToken = $cookies.get("sessionToken");
+      console.log(sessionToken);
       if (sessionToken === undefined) {
         $location.path("/login");
       }
@@ -26,6 +27,7 @@ angular.module('app')
             $location.path($rootScope.beforeURL);
           })
           .error(function () {
+            $rootScope.sessionToken = undefined;
             $location.path("/login");
           })
       }

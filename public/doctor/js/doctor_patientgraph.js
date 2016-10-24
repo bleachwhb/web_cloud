@@ -22,6 +22,7 @@ angular.module('app')
         Pill_Names: [],
     });
 
+
     $scope.chart = new CanvasJS.Chart("myChart", {
         colorSet: "customColorSet",
         animationEnabled: true,
@@ -174,10 +175,16 @@ angular.module('app')
                     PillData = result[i].get("Pill_Data");
                     pill_names = result[i].get("Pill_Names");
                 }
-                createDataArray(PillData, pill_times_data)
-                putDataArrayToChart();
-                console.log($scope.chart.options.data)
-                $scope.chart.render();
+                console.log("Pill data is ", PillData)
+                if (PillData.length != 0) {
+                    console.log("entered pill data");
+                    createDataArray(PillData, pill_times_data)
+                    putDataArrayToChart();
+                    console.log($scope.chart.options.data)
+                    $scope.chart.render();
+
+                }
+
               });
         },
         error: function(error) {

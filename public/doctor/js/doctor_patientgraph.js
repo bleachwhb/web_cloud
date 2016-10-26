@@ -176,14 +176,22 @@ angular.module('app')
                     pill_names = result[i].get("Pill_Names");
                 }
                 console.log("Pill data is ", PillData)
-                if (PillData.length != 0) {
+               if (PillData.length != 0) {
                     console.log("entered pill data");
                     createDataArray(PillData, pill_times_data)
                     putDataArrayToChart();
                     console.log($scope.chart.options.data)
                     $scope.chart.render();
 
-                }
+               }
+               else {
+                    createDataArray(PillData, pill_times_data)
+                    putDataArrayToChart();
+                    console.log($scope.chart.options.data)
+                    $scope.chart.options.title.text += " (No Data)"
+                    $scope.chart.render();
+               }
+
 
               });
         },
@@ -232,21 +240,32 @@ angular.module('app')
     function createDataArray(PillData, drawArray){
       console.log("function called")
       console.log("length is ", PillData.length)
+      var dataExists = 0
       for(var i = 0; i < PillData.length; i++){
+        dataExists = 1
         var chartData = []
         for(var j = 0; j < PillData[i].length; j++){
           if(PillData[i][j]["time"] == null){
+            console.log("entered first if")
             chartData.push({x:PillData[i][j]["date"], y:null})
           }
           else if(PillData[i][j]["number"] == false){
+            console.log("entered 2nd if")
             chartData.push({x:PillData[i][j]["date"], y:PillData[i][j]["time"],
                            markerType:"cross", markerBorderThickness: 10, markerSize: 12})
           }
           else{
+            console.log("entered 3rd if ")
             chartData.push({x:PillData[i][j]["date"], y:PillData[i][j]["time"]})
           }
         }
         drawArray.push(chartData)
+      }
+      if (dataExists == 0) {
+            chartData = [({x:0, y:0})]
+            
+
+            // push stuff
       }
     }
 

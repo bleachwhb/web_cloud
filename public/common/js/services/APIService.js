@@ -93,12 +93,23 @@ angular.module('app')
       GetAppointment: function() {
         var deferred = APIUtility.defer();
         APIUtility.GET('/patient/appointment')
-          .then(function (data, status, headers, config) {
-            console.log(data);
-            return deferred.resolve(data.data);
-          }, function (data, status, header, config) {
-            return deferred.reject(data.data)
-          });
+            .then(function (data, status, headers, config) {
+              console.log(data);
+              return deferred.resolve(data.data);
+            }, function (data, status, header, config) {
+              return deferred.reject(data.data)
+            });
+        return deferred.promise;
+      },
+      LogOut: function() {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/logout')
+            .then(function (data, status, headers, config) {
+              console.log(data);
+              return deferred.resolve(data.data);
+            }, function (data, status, header, config) {
+              return deferred.reject(data.data)
+            });
         return deferred.promise;
       }
     }

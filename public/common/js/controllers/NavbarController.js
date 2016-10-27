@@ -1,18 +1,19 @@
 angular.module('app')
-  .controller('NavbarController', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location) {
+  .controller('NavbarController', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location, $cookies) {
     console.log($rootScope.user);
     $scope.logOut = function () {
-      Parse.User.logOut({
-        success: function () {
-          $scope.$apply(function () {
-          });
-        },
-        error: function () {
-          alert("Error!");
-        }
-      });
-      $location.path('/login').replace();
-      $rootScope.currentUser = null;
+        APIService.LogOut()
+            .success(function() {
+                $rootScope.sessionToken = null;
+                $cookies.remove("sessionToken");
+                $location.path('/login').replace();
+                $rootScope.currentUser = null;
+            })
+            .error(function(error) {
+                alert('Error:' + error.code + ' ' + error.message);
+                $location.path('/login').replace();
+                $rootScope.currentUser = null;
+            });
     };
 
   }]);

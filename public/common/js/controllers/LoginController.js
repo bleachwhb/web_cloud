@@ -6,7 +6,6 @@ angular.module('app')
         console.log('called');
         APIService.Login($scope.email, $scope.password)
           .success(function(res) {
-            console.log(res);
             $rootScope.sessionToken = res.sessionToken;
             $cookies.put("sessionToken", res.sessionToken);
             APIService.GetUser()

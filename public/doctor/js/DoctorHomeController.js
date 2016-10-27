@@ -1,17 +1,13 @@
 angular.module('app')
-  .controller('DoctorHomeController', ['$scope', '$rootScope', 'Patient', '$timeout', '$http', function($scope, $rootScope, Patient) {
-  console.log('reached home controller');
-//   $rootScope.user = {
-// 		firstname: $rootScope.currentUser.get('firstname'),
-// 		lastname: $rootScope.currentUser.get('lastname'),
-// 		age: $rootScope.currentUser.get('age'),
-// 		gender: $rootScope.currentUser.get('gender'),
-// 		email: $rootScope.currentUser.get('email'),
-// 		phone: $rootScope.currentUser.get('phone'),
-// 		imageURL: $rootScope.currentUser.get("photo").url(),
-// 	};
+  .controller('DoctorHomeController', ['$scope', '$rootScope', '$location',
+    function($scope, $rootScope, $location) {
+      console.log('reached home controller');
 
-	$scope.getPatientsInfo2 = function() {
+      if ($rootScope.sessionToken === undefined) {
+        $rootScope.beforeURL = $location.path();
+        $location.path("/");
+      }
+	    $scope.getPatientsInfo2 = function() {
         Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
 
         $scope.sortedName = []

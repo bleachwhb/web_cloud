@@ -119,7 +119,7 @@ angular.module('app')
                             var userAndName = {
                                 lastName: lastname,
                                 name: name,
-                                user: user``
+                                user: user
                             };
                             unsortedNames.push(userAndName);
                         }

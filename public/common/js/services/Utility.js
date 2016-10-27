@@ -2,23 +2,6 @@ angular.module('app')
   .factory('APIUtility', function ($rootScope, $http, $q) {
 
     var host = $rootScope.apiServer;
-<<<<<<< Updated upstream
-    var sessionToken = $rootScope.sessionToken;
-    var config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Parse-Application-Id': appId
-      }
-    };
-    if (sessionToken) {
-      config.header['X-Parse-Session-Token'] = sessionToken;
-    }
-    return {
-      GET: function (path, data) {
-        return $http.get(host + path, data, config)
-      },
-      POST: function (path, data) {
-=======
 
     function createConfig() {
       var appId = $rootScope.appId;
@@ -42,7 +25,6 @@ angular.module('app')
       },
       POST: function (path, data) {
         var config = createConfig();
->>>>>>> Stashed changes
         return $http.post(host + path, data, config)
       },
       decorate: function(promise) {

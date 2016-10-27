@@ -32,6 +32,13 @@ angular.module('app')
             modalInstance.result.then(function (selectedItem) {
               $scope.selected = selectedItem;
               console.log($scope.selected);
+              APIService.GetAppointment()
+                .success(function(results) {
+                  $scope.appointments = results;
+                })
+                .error(function(error) {
+                  alert(error.code + ' ' + error.message);
+                });
             }, function () {
               console.log('Modal dismissed at: ' + new Date());
             });

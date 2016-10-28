@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('NavbarController', ['$rootScope', '$scope', '$location', function ($rootScope, $scope, $location, $cookies) {
+  .controller('NavbarController', ['$rootScope', '$scope', '$location', '$cookies', 'APIService', function ($rootScope, $scope, $location, $cookies, APIService) {
     console.log($rootScope.user);
     $scope.logOut = function () {
         APIService.LogOut()

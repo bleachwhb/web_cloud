@@ -11,6 +11,9 @@ var nameDictionary = {};
 var selected = "name0";
 
 
+var flag = true;
+
+
 //toggleActive
 //parameters: div element
 //function: toggles the active class element for divs on the right
@@ -222,10 +225,17 @@ function createNameDiv(patientName, count) {
 //parameters:patientID
 //function:tell the doctor that the patient doesn't have a prescription
 
-function noPrescription()
+function noPrescription(patient)
 {
  var noPre=document.getElementById("patient_descriptions");
-			noPre.innerHTML="<button type='button' id='addBtn' class='btn btn-primary'><i class='fa fa-plus'></i> Add Prescription</button><br/> No prescription<br/>";
+			noPre.innerHTML="<button type='button' id='addBtn' class='btn btn-primary'><i class='fa fa-plus'></i> Add Prescription</button>	<br/> No prescription<br/>";
+			
+				//add prescription button
+	document.getElementById("addBtn").addEventListener("click", function() {
+
+			addPrescription(patient);
+
+	});
 }
 
 //getPrescriptions()
@@ -234,6 +244,7 @@ function noPrescription()
 //          creates prescription descriptions seen on left of screen
 function getPrescriptions(user) {
 
+	flag = true;
 	//reset html
 	var pd = document.getElementById("patient_descriptions");
 	pd.innerHTML = "<button type='button' id='addBtn' class='btn btn-primary'><i class='fa fa-plus'></i> Add Prescription</button><br/>";
@@ -260,7 +271,7 @@ function getPrescriptions(user) {
 	prescriptionQuery.find().then(function(results) {
 		//if they have no prescriptions associated with them
 		if (results.length == 0) {
-           noPrescription();
+           noPrescription(user);
 			return;
 		}
 
@@ -313,6 +324,8 @@ function getSchedule(scheduleID, drugName, prescriptionID, patient, prescription
 			}
 		}
 		//prescriptionNum is to make id unique in createPrescriptionDiv
+		
+		flag = true;
 		createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patient, prescriptionNum);
 	});
 
@@ -323,6 +336,9 @@ function getSchedule(scheduleID, drugName, prescriptionID, patient, prescription
 //parameters: drugName, prescriptionID, days, scheduleID, patient, prescriptionNum
 //function: creates the html div of this prescription along with its schedule
 function createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patient, prescriptionNum) {
+	
+	console.log("create");
+	
 	//Add info to div id="patient_prescriptions"
 	var pd = document.getElementById("patient_descriptions");
 
@@ -402,7 +418,11 @@ function createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patie
 
 	//add prescription button
 	document.getElementById("addBtn").addEventListener("click", function() {
-		addPrescription(patient);
+		console.log("calledd");
+//		if (flag) {	
+			addPrescription(patient);
+//		}
+		flag = false;
 	});
 
 	// startUpdateDosage(scheduleID, drugName);
@@ -583,12 +603,14 @@ function addPrescriptionToParse(prescription){
 	//function: creates div (AND LATER ADDS TO DATABASE) to allow user to add prescription to patient
 	function addPrescription(patient) {
 
+		if ($("#patient_descriptions:contains('Submit')").length != 0) return;
+
 		//temporarily remove addBtn
 		var addBtnHTML = $("#addBtn").html();
 		//  $("#addBtn").remove();
-		$(document.body).on("click", '#addBtn', function() {
-			addPrescription(patient);
-		});
+//		$(document.body).on("click", '#addBtn', function() {
+//			addPrescription(patient);
+//		});
 
 		var divHTML = $("#patient_descriptions").html();
 
@@ -723,7 +745,6 @@ function addPrescriptionToParse(prescription){
 
 
 		//ADD FUNCTIONALITY TO ADD NEW PRESCRIPTION HERE
-		 conso
 
 	}
 

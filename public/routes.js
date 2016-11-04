@@ -41,6 +41,7 @@ angular.module('app')
       })
       .when('/forgotpassword', {
           templateUrl : 'common/views/forgotpassword.html',
+          controller: 'ForgotPassController'
       })
       .when('/doctor/profile', {
           templateUrl : 'doctor/views/doctorprofile.html',

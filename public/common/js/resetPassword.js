@@ -1,5 +1,4 @@
 // This is required for using Parse
-Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
 
 function resetPassword(email, redirectUrl) {
   Parse.User.requestPasswordReset(email, {

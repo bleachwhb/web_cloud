@@ -111,6 +111,27 @@ angular.module('app')
               return deferred.reject(data.data)
             });
         return deferred.promise;
+      },
+      ForgotPass: function(email) {
+        var deferred = APIUtility.defer();
+        var data = {
+          email: email
+        };
+        console.log(data);
+        APIUtility.POST('/account/password', data)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve({
+              sessionToken: data.data.sessionToken
+            });
+          }, function (data, status, header, config) {
+            console.log(data);
+            return deferred.reject({
+              code: data.data.code,
+              message: data.data.message
+            })
+          });
+        return deferred.promise;
       }
     }
 

@@ -20,6 +20,7 @@
             .avatar {
                 float: left;
                 margin-left: 0px;
+
             }
             .aLabel {
                 float: left;
@@ -59,7 +60,7 @@
 
         <div class="container1">
             <div class="avatar">
-                <img src="{{user.imageURL}}" class="image-circle"/>
+                <img src="{{user.imageURL}}" class="image-circle" width="250" height="250"/>
             </div>
             <div class="aLabel">
                 <form id="fileupload" name="fileupload" enctype="multipart/form-data" method="post">
@@ -109,7 +110,7 @@
                             <td style="width:20%"> Phone: </td>
                             <td style="width:80%"> <span editable-text="user.phone" e-name="phone" onaftersave="saveUser()" e-required>{{ user.phone || 'empty' }}</span> </td>
                         </tr>
-                        <tr> <td style="width:40%"><button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">Edit</button>
+                        <tr> <td style="width:60%"><button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">Edit</button>
                         <span ng-show="editableForm.$visible">
                             <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">Save</button>
                             <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">

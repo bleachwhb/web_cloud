@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('DoctorHomeController', ['$scope', '$rootScope', 'Patient', '$timeout', '$http', function($scope, $rootScope, Patient) {
+  .controller('DoctorHomeController', ['$scope', '$rootScope', 'Patient', '$timeout', '$http', function($scope, $rootScope, Patient,Appointment) {
   console.log('reached home controller');
 //   $rootScope.user = {
 // 		firstname: $rootScope.currentUser.get('firstname'),
@@ -11,8 +11,18 @@ angular.module('app')
 // 		imageURL: $rootScope.currentUser.get("photo").url(),
 // 	};
 
+    $rootScope.user = {
+		firstname: $rootScope.currentUser.get('firstname'),
+		lastname: $rootScope.currentUser.get('lastname'),
+		age: $rootScope.currentUser.get('age'),
+		gender: $rootScope.currentUser.get('gender'),
+		email: $rootScope.currentUser.get('email'),
+		phone: $rootScope.currentUser.get('phone'),
+        appointment: $rootScope.currentUser.get('Appointments')
+	};
+
 	$scope.getPatientsInfo2 = function() {
-        Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
+        // Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
 
         $scope.sortedName = []
 
@@ -42,16 +52,23 @@ angular.module('app')
                         var email = user.get("email");
                         var phone = user.get("phone");
                         // var imageURL = user.get("photo");
+                        var appointment= user.get("Appointments");
 
                         if (firstname != undefined && lastname != undefined) {
-                            var name = firstname + " " + lastname + " " + age + " " +
-                                        gender + " " + email + " " + phone;
+                            // var name = firstname + " " + lastname + " " + age + " " +
+                            //             gender + " " + email + " " + phone;
+                            var name = firstname + " " + lastname;
                             var userAndName = {
                                 lastName: lastname,
                                 name: name,
-                                user: user
+                                user: user,
+                                age : age,
+                                gender: gender,
+                                appointment: appointment
                             };
                             unsortedNames.push(userAndName);
+                            console.log("unsorted names is ", unsortedNames)
+
                         }
                     }
                 }
@@ -65,9 +82,12 @@ angular.module('app')
                     return 0;
                 });
                 for (var i = 0; i < unsortedNames.length; i++) {
-                    var sortedUser = unsortedNames[i]["user"];
-                    $scope.sortedName.push(unsortedNames[i]["name"]);
+                     $scope.sortedName.push(unsortedNames[i]); 
                 }
+                // for (var i = 0; i < unsortedNames.length; i++) {
+                //     var sortedUser = unsortedNames[i]["user"];
+                //     $scope.sortedName.push(unsortedNames[i]["name"]);
+                // }
 
                 // console.log($scope.sortedName)
               });
@@ -76,8 +96,17 @@ angular.module('app')
                 alert(error.message);
             }
         });
+    //     query.save({
+    //         success: function(patients){
+
+    //         },
+    //         error: function(error) {
+    //             alert(error.message);
+    //         }
+    //     });
+    // }
+    // console.log(unsortedNames)
     }
-
     $scope.getPatientsInfo2();
-
+    
 }]);

@@ -282,13 +282,14 @@ function getPrescriptions(user) {
 
 			var drugName = curr.get("pillName");
 			var schedule = curr.get("schedule");
+			var note = curr.get("note");
 
 			if (typeof schedule == "undefined") {
 				console.log("Schedule has not been set for " + drugName + " for patient " + user.get("firstname") + " " + user.get("lastname") + ".");
 				return;
 			}
 			//get each prescription's schedule
-			getSchedule(schedule["id"], drugName, curr["id"], user, p);
+			getSchedule(schedule["id"], drugName, curr["id"], user, p, note);
 		}
 	});
 }
@@ -296,7 +297,7 @@ function getPrescriptions(user) {
 //getSchedule()
 //parameters: scheduleID, drugName, prescriptionID, patient
 //function: gets schedule for certain perscription, along with its drug name
-function getSchedule(scheduleID, drugName, prescriptionID, patient, prescriptionNum) {
+function getSchedule(scheduleID, drugName, prescriptionID, patient, prescriptionNum, note) {
 
 	var scheduleList = Parse.Object.extend("Schedule");
 	var scheduleQuery = new Parse.Query(scheduleList);
@@ -326,7 +327,7 @@ function getSchedule(scheduleID, drugName, prescriptionID, patient, prescription
 		//prescriptionNum is to make id unique in createPrescriptionDiv
 		
 		flag = true;
-		createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patient, prescriptionNum);
+		createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patient, prescriptionNum, note);
 	});
 
 }
@@ -335,7 +336,7 @@ function getSchedule(scheduleID, drugName, prescriptionID, patient, prescription
 //createPrescriptionDiv()
 //parameters: drugName, prescriptionID, days, scheduleID, patient, prescriptionNum
 //function: creates the html div of this prescription along with its schedule
-function createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patient, prescriptionNum) {
+function createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patient, prescriptionNum, note) {
 	
 	console.log("create");
 	
@@ -400,9 +401,15 @@ function createPrescriptionDiv(drugName, prescriptionID, days, scheduleID, patie
 
 
 	var deleteBtnName = "deleteBtn" + prescriptionID;
+	
+	if (!note)
+	{
+		note = " ";
+	}
 
 	newP += "</tbody>" +
 	"</table>" +
+	"<label>Note:"+note+"</label>"+
 	"</div>" +
 	"<div class='btn-group' id='" + drugName + "btnGroup' role='group'>" +
 	"<button type='button' id='" + deleteBtnName + "' class='btn btn-default'>Delete</button>" +
@@ -513,6 +520,8 @@ function submitForm() {
 	var fr = document.getElementById("fr_pill").value;
 	var sa = document.getElementById("sa_pill").value;
 	var su = document.getElementById("sun_pill").value;
+	var note = document.getElementById("noteforpatient").value;
+	console.log(note);
 	var prescription = {
 		pillName:prescriptionName,
 		time:time,
@@ -522,7 +531,8 @@ function submitForm() {
 		th:th,
 		fr:fr,
 		sa:sa,
-		su:su
+		su:su,
+		note:note
 	};
 	addPrescriptionToParse(prescription);
 }
@@ -569,7 +579,8 @@ function addPrescriptionToParse(prescription){
 						{
 							pillName: prescription["pillName"],
 							schedule: s,
-							patientID: selectedP
+							patientID: selectedP,
+							note: prescription["note"]
 						},
 						{
 							success: function(p){
@@ -662,6 +673,10 @@ function addPrescriptionToParse(prescription){
 
 		"</tbody>" +
 		"</table>" +
+		
+					
+		"<label>Add a note for the patient:</label>"+
+		"<input id='noteforpatient' class='form-control'>"+
 		"</div>" +
 		"<br/>" +
 
@@ -737,6 +752,7 @@ function addPrescriptionToParse(prescription){
 
 			"</tbody>" +
 			"</table>" +
+
 			"</div>" +
 			"<br/>";
 			formHTML += newFieldSet;

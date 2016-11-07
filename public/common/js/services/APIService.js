@@ -79,6 +79,50 @@ angular.module('app')
           });
         return deferred.promise;
       },
+      GetDoctorPatients: function() {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/doctor/patients')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+      GetPrescription: function(patientId) {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/doctor/patient/prescription' + '?patientId=' + patientId)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+      AddPrescription: function(prescription) {
+        var deferred = APIUtility.defer();
+        APIUtility.POST('/doctor/patient/prescription', prescription)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+      DeletePrescription: function(prescriptionId) {
+        var deferred = APIUtility.defer();
+        APIUtility.DELETE('/doctor/patient/prescription' + '?prescriptionId=' + prescriptionId)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
       AddAppointment: function(appointment) {
         var deferred = APIUtility.defer();
         APIUtility.POST('/patient/appointment', appointment)

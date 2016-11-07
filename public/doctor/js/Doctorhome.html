@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doctor - Patient Prescription Page</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+    <script type="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script src="doctor/js/jqueryDataTables.js"></script>
+    <script src="doctor/js/Table.js"></script>
+
+    <script>
+        function toggleActive(element){
+            //should only be one
+            var actives = document.getElementsByClassName("list-group-item active");
+            for (var i = 0; i < actives.length; i++){
+                actives[i].className = "list-group-item";
+            }
+            element.className = "list-group-item active";
+            var drugs = document.getElementsByClassName("drug");
+            for (var d = 0; d < drugs.length; d++){
+                if (element.textContent.length > 20) {
+                    drugs[d].textContent = document.getElementById("firstPatient").textContent + "'s Drug " + (d+1);
+                }
+                else {
+                    drugs[d].textContent = element.textContent + "'s Drug " + (d+1);
+                }
+            }
+        }
+    </script>
+</head>
+
+<style>
+    body {
+        font-family: "Helvetica Neue";
+    }
+    .changecol{
+        color:red !important;
+    }
+</style>
+
+<body onload="toggleActive(document.getElementById('firstDrug'))">
+
+    <div class="container">
+    <h2>Patient Information</h2>
+   </div>
+
+<!--change color -->
+<p id="a" onclick="myFunction()"></p>
+
+<script>
+function myFunction1() {
+    $("#toggle-name").toggleClass("changecol");
+}
+function myFunction2() {
+    $("#toggle-gender").toggleClass("changecol");
+}
+function myFunction3() {
+    $("#toggle-age").toggleClass("changecol");
+}
+function myFunction4() {
+    $("#toggle-preapp").toggleClass("changecol");
+}
+function myFunction5() {
+    $("#toggle-nextapp").toggleClass("changecol");
+}
+function myFunction6() {
+    $("#toggle-Medication").toggleClass("changecol");
+}
+</script>
+
+<div class="container">
+<div>
+      Toggle column:
+      <label><a id="toggle-name" class ="toggle-vis" data-column="0"  onclick="myFunction1()" ><span>Name</span></a></label>
+      <label><a id="toggle-gender" class ="toggle-vis" data-column="1" onclick="myFunction2()"><span>- Gender </span></a ></label>
+      <label><a id="toggle-age" class ="toggle-vis" data-column="2" onclick="myFunction3()"><span>- Age</span></a ></label>
+      <label><a id="toggle-preapp" class ="toggle-vis" data-column="3" onclick="myFunction4()"><span>- Last Appointment</span></a ></label>
+      <label><a id="toggle-nextapp" class ="toggle-vis" data-column="4" onclick="myFunction5()"><span>- Next Appointment</span></a ></label>
+      <label><a id="toggle-Medication" class ="toggle-vis" data-column="5" onclick="myFunction6()"><span>- Adherence %</span></a ></label>
+</div>
+
+</br>
+
+
+<table border="0" cellspacing="6" cellpadding="6">
+        <tbody>
+        <tr>
+            <td>Set the Threshold value to show:</td>
+            <td><input type="text" class="max" name="max"></td>
+        </tr>
+    </tbody>
+</table>
+
+</br>
+</br>
+<div class="row" ng-controller="DoctorHomeController">
+    <!--<form editable-form name="editableForm" onaftersave="saveUser()">
+    <table class="table table-striped" id="editableUser" style="width:50%">
+        <tr>
+            <td style="width:20%">Name: </td>
+            <td style="width:80%"> <span editable-text="user.firstname" e-name="name" onaftersave="saveUser()" e-required>{{ user.firstname || 'empty' }}</span></td> 
+        </tr>
+        <tr>
+            <td style="width:20%">Age: </td>
+            <td style="width:80%"> <span editable-number="user.age" e-name="age" onaftersave="saveUser()" e-required>{{ user.age || 'empty' }}</span></td>
+        </tr>
+        <tr>
+            <td style="width:20%">Gender: </td>
+            <td style="width:80%"><span editable-text="user.gender" e-name="gender" onaftersave="saveUser()" e-required>{{ user.gender || 'empty' }}</span></td>
+        </tr>
+        <tr>
+            <td style="width:20%"> E-mail: </td>
+            <td style="width:80%"> <span editable-text="user.email" e-name="email" onaftersave="saveUser()" e-required>{{ user.email || 'empty' }}</span> </td>
+        </tr>
+        <tr>
+            <td style="width:20%"> Phone: </td>
+            <td style="width:80%"> <span editable-text="user.phone" e-name="phone" onaftersave="saveUser()" e-required>{{ user.phone || 'empty' }}</span> </td>
+        </tr>
+        <tr> <td style="width:40%"><button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">Edit</button>
+        <span ng-show="editableForm.$visible">
+            <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">Save</button>
+            <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                Cancel
+            </button>
+        </span></td></tr>
+    </table>
+    </form>-->
+
+
+
+
+   <table id="example" class="display" cellspacing="0" width="100%" class="table table-hover">
+        <!--<tr href="" ng-repeat="x in fullname track by $index"> 
+             <td>{{x}}</td>
+        </tr>-->
+    <thead>
+        <tr>
+            <th style="width:20%">Name</th>
+            <th style="width:20%">Age</th>
+            <th style="width:20%">Gender</th>
+            <th style="width:20%">Last Appointment</th>
+            <th style="width:20%">Next Appointment</th>
+            <th style="width:20%">Adherence %</th>
+        </tr>
+    </thead>
+    <tbody>
+       <form class="form-inline" role="form">
+        <tr ng-repeat="item in sortedName track by $index">
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.gender}}</td>
+                <td>
+                    <div class=col-xs-6>
+                        <input type='text' class="form-control" placeholder="{{item.appointment[0]}}">
+                    </div>
+                </td>
+                 <td>
+                     <div class=col-xs-6>
+                        <input type='text' class="form-control" placeholder="{{item.appointment[1]}}">
+                    </div>
+                 </td>
+                <!--<td><input type='text'></td>-->
+                <!--<td><input type='text'></td>-->
+        </tr>
+        <!--<input type="submit" value="submit"/>-->
+        <!--<input type="reset" value="reset"/>-->
+       </form>
+    </tbody>
+        <!--<tr>
+            <td style="width:20%">appointment start date: </td>
+            <td style="width:80%"> <span editable-text="appointment start date" e-name="appointment start date" onaftersave="saveUser()" e-required>{{ appointment start date || 'empty' }}</span></td>
+        </tr>
+        <tr>
+            <td style="width:20%">appointment end date </td>
+            <td style="width:80%"> <span editable-number="appointment end date" e-name="appointment end date" onaftersave="saveUser()" e-required>{{ user.age || 'empty' }}</span></td>
+        </tr>-->
+    </table>
+  </div>
+</div>
+
+<!--<div class="row" ng-controller="DoctorHomeController">
+    <div class="col-md-4">
+      <h3 id="patientlist-title">Patients' List</h3>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for a patient">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Search</button>
+          </span>
+      </div>
+
+      <div class="list-group" id="patien_names_doctorhome">
+        <a href="" ng-repeat="x in sortedName track by $index" class="list-group-item" ng-click="patientClicked(x)">
+          <h4 class="list-group-item-heading">{{x}}</h4>
+        </a>
+      </div>
+    </div>
+
+</div>-->
+
+</body>
+</html>

@@ -90,6 +90,17 @@ angular.module('app')
           });
         return deferred.promise;
       },
+      GetPatientPrescription: function() {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/patient/prescription')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
       GetPrescription: function(patientId) {
         var deferred = APIUtility.defer();
         APIUtility.GET('/doctor/patient/prescription' + '?patientId=' + patientId)

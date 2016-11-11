@@ -71,7 +71,22 @@
                             <input type="text" name="prescription" class="form-control" placeholder=""
                                    id="prescriptionName"
                                    ng-model="prescriptionName">
-                            <button class="btn btn-default" ng-click="addTime()">Add Time</button>
+                            <div class="btn-group" uib-dropdown keyboard-nav>
+                                <button id="doctor-select-dropdown" type="button" class="btn btn-default" uib-dropdown-toggle>
+                                    Pill Name: {{selected.pillName}}<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                    <li role="menuitem" ng-repeat="pill in pills">
+                                        <a ng-click="select(pill)" href>
+                                            Name: {{pill.pillName}} {{pill.pillInfo}}
+                                            <br>&nbsp;&nbsp;&nbsp;&nbsp;Insruction: {{pill.pillInstruction}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <button class="btn btn-default" ng-click="addTime()">Add Time</button>
+                            </div>
                             <div>
                                 <div class="form-group" ng-repeat="time in times">
                                     <label class="time">Time {{time.index}}</label>

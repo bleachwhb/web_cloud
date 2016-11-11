@@ -9,7 +9,6 @@ angular.module('app')
 			else {
 				APIService.GetDoctorPatients()
           .success(function(results) {
-            console.log(results);
             $scope.togglePatient = results[0];
             $scope.patients = results;
             APIService.GetPrescription(results[0].patientId)
@@ -79,6 +78,15 @@ angular.module('app')
 angular.module('app')
   .controller('addPrescriptionCtrl', function ($scope, $uibModalInstance, patient, APIService) {
 
+    APIService.GetPills()
+      .success(function(results) {
+        console.log(results);
+        $scope.pills = results;
+      })
+      .error(function(error) {
+        alert(error.code + ' ' + error.message);
+      });
+
     $scope.patient = patient;
     $scope.prescriptionName = '';
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -112,6 +120,10 @@ angular.module('app')
 
     };
 
+    $scope.select = function(pill) {
+      $scope.selected = pill;
+    };
+
     $scope.deleteTime = function(time) {
       $scope.times = $scope.times.filter(function(t) {
         return t.index != time.index
@@ -122,6 +134,7 @@ angular.module('app')
     $scope.ok = function () {
       var prescription = {
         patientId: $scope.patient.patientId,
+        pillId: $scope.selected.pillId,
         name: $scope.prescriptionName,
         note: $scope.note
       };

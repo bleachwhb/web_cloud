@@ -134,6 +134,17 @@ angular.module('app')
           });
         return deferred.promise;
       },
+      GetPills: function() {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/pharmacy/pills')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
       AddAppointment: function(appointment) {
         var deferred = APIUtility.defer();
         APIUtility.POST('/patient/appointment', appointment)

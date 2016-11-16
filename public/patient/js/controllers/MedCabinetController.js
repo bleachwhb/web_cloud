@@ -14,7 +14,7 @@ angular
         }
 
         function getAllPillInfo() {
-            var pillInfo = Parse.Object.extend("PillLib");
+            var pillInfo = Parse.Object.extend("Prescription");
             var query = new Parse.Query(pillInfo);
             query.find({
                 success: function(results) {

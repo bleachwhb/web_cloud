@@ -1,23 +1,124 @@
-	<!--<div ng-controller='NavController as tab' ng-include src="'/partials/navbar/navbar_doctor.html'"></div>-->
+<div class="row" style="margin: auto">
+    <div class="col-md-3">
+        <h3 id="patientlist-title">Patients List</h3>
+        <div class="input-group">
+            <input type="text" id="SearchText" class="form-control" placeholder="Search for a patient">
+            <span class="input-group-btn">
+      <button class="btn btn-default" id="SearchPatient" type="button" ng-click="searchPatient()">Search</button>
+    </span>
+        </div>
 
-	<div class="row" style="margin: auto">
-		<div class="col-md-3">
-			<h3 id="patientlist-title">Patients List</h3>
-			<div class="input-group">
-				<input type="text" id="SearchText" class="form-control" placeholder="Search for a patient">
-				<span class="input-group-btn">
-	          <button class="btn btn-default" id="SearchPatient" type="button" onclick="searchPatient()">Search</button>
-	        </span>
-			</div>
+        <div class="list-group" id="patient_names">
+            <div ng-repeat="patient in patients">
+                <a class="list-group-item" ng-click="getPatientPrescription(patient)"
+                   ng-class="{'active': togglePatient.patientId===patient.patientId}">
+                    <h4 class="list-group-item-heading">{{patient.firstName}} {{patient.lastName}}</h4>
+                </a>
+            </div>
+        </div>
+    </div>
 
-			<div class="list-group" id="patient_names">
-			</div>
-		</div>
+    <div class="col-md-8">
+        <div class="list-group" id="patient_descriptions">
+            <button type="button" id="addBtn" class="btn btn-primary" ng-click="addPrescription(togglePatient)">
+                <i class="fa fa-plus"></i> Add Prescription
+            </button>
+            <div class="row">
+                <div class="col-md-12" ng-repeat="prescription in prescriptions">
+                    <a class="list-group-item">
+                        <h3 class="drug">{{prescription.name}}</h3>
 
-		<div class="col-md-8">
-			<div class="list-group" id="patient_descriptions">
-			</div>
-		</div>
-
-	</div>
+                        <div class="table-responsive">
+                            <table class="table table-responsive">
+                                <thead>
+                                <tr>
+                                    <th>time</th>
+                                    <th>Sunday</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                    <th>Saturday</th>
+                                </tr>
+                                <tr></tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="time in prescription.times">
+                                    <td>{{time.time | date: "HH:mm"}}</td>
+                                    <td ng-repeat="day in time.days">
+                                        <a class="doses">{{day.amount}}</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <label>Note: {{prescription.note}}</label>
+                              <div class="btn-group" role="group">
+                               <button type="button" class="btn btn-danger"
+                                       ng-click="deletePrescription(prescription.id)">Delete</button>
+                              </div>
+                    </a>
+                </div>
+            </div>
+            <script type="text/ng-template" id="addPrescription.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">Add prescription for {{patient.firstName}} {{patient.lastName}}</h3>
+                </div>
+                <div class="modal-body">
+                    <form method="post" name="form_name" id="form_id">
+                        <fieldset class="form-group" id="newPrescriptionForm">
+                            <label for="prescriptionName">Prescription Name:</label>
+                            <input type="text" name="prescription" class="form-control" placeholder=""
+                                   id="prescriptionName"
+                                   ng-model="prescriptionName">
+                            <div class="btn-group" uib-dropdown keyboard-nav>
+                                <button id="doctor-select-dropdown" type="button" class="btn btn-default" uib-dropdown-toggle>
+                                    Pill Name: {{selected.pillName}}<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+                                    <li role="menuitem" ng-repeat="pill in pills">
+                                        <a ng-click="select(pill)" href>
+                                            Name: {{pill.pillName}} {{pill.pillInfo}}
+                                            <br>&nbsp;&nbsp;&nbsp;&nbsp;Insruction: {{pill.pillInstruction}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <button class="btn btn-default" ng-click="addTime()">Add Time</button>
+                            </div>
+                            <div>
+                                <div class="form-group" ng-repeat="time in times">
+                                    <label class="time">Time {{time.index}}</label>
+                                    <button class="btn btn-danger" ng-click="deleteTime(time)">Delete</button>
+                                    <input type="time" class="form-control" placeholder="" ng-model="time.time">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td ng-repeat="day in time.days">
+                                                <div class="form-group">
+                                                    <label class="day">{{day.name}}
+                                                        <input type="number" min="0" class="form-control"
+                                                               placeholder="# of Pills"
+                                                               ng-model="day.amount">
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <label for="prescriptionNote">Add a note for the patient:</label>
+                                <input ng-model="note" class="form-control" id="prescriptionNote">
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="ok()">Submit</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                </div>
+            </script>
+        </div>
+    </div>
+</div>
 

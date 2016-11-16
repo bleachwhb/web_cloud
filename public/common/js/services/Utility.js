@@ -11,7 +11,7 @@ angular.module('app')
           'Content-Type': 'application/json',
           'X-Parse-Application-Id': appId
         }
-      }
+      };
       if (sessionToken) {
         config.headers['X-Parse-Session-Token'] = sessionToken;
       }
@@ -26,6 +26,10 @@ angular.module('app')
       POST: function (path, data) {
         var config = createConfig();
         return $http.post(host + path, data, config)
+      },
+      DELETE: function (path) {
+        var config = createConfig();
+        return $http.delete(host + path, config)
       },
       decorate: function(promise) {
         promise.success = function(callback) {

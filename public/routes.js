@@ -62,8 +62,8 @@ angular.module('app')
         //   css : 'doctor/css/doctor_table.css'
       })
       .when('/doctor/docpatient', {
-          templateUrl: 'doctor/views/doctor_patientprescription.html'
-        //   controller  : 'DoctorPrescriptionController'
+          templateUrl: 'doctor/views/doctor_patientprescription.html',
+          controller  : 'DoctorPrescriptionController'
       })
       .when('/doctor/graph', {
           templateUrl: 'doctor/views/doctor_patientgraph.html',

@@ -16,6 +16,6 @@ app.run(['$rootScope', '$location', function($rootScope, $location) {
 
   $rootScope.location = $location;
   $rootScope.appId = 'myAppId';
-  $rootScope.apiServer = 'http://localhost:5000';
-  // $rootScope.apiServer = 'http://129.105.36.93:5000';   //Online Server
+  // $rootScope.apiServer = 'http://localhost:5000';
+  $rootScope.apiServer = 'http://129.105.36.93:5000';   //Online Server
 }]);

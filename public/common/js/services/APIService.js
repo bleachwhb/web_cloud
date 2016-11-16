@@ -120,7 +120,7 @@ angular.module('app')
         console.log(data);
         APIUtility.POST('/account/password', data)
           .then(function (data, status, headers, config) {
-            console.log(data);
+            console.log('data is ', data);
             return deferred.resolve({
               sessionToken: data.data.sessionToken
             });

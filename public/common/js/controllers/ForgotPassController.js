@@ -8,7 +8,8 @@ angular.module('app')
         //   console.log('receive send email')
         //   console.log($scope.userEmail)
         //   // APIUtility.
-
+        const urlRegex = require('url-regex');
+        console.log(urlRegex().test('http://github.com foo bar'))
 
         // } 
         $scope.sendEmail = function (email) {
@@ -21,7 +22,7 @@ angular.module('app')
                 // $cookies.remove("sessionToken");
                 // $location.path('/login').replace();
                 // $rootScope.currentUser = null;
-            })
+            })  
             .error(function(error) {
                 // alert('Error:' + error.code + ' ' + error.message);
                 // $location.path('/login').replace();

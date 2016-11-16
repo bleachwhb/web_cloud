@@ -80,9 +80,13 @@ angular.module('app')
           controller: 'MedCabinetController',
           css: 'patient/css/medcabinet.css'
       })
+      .when('/account*', {
+          templateUrl: 'patient/views/medCabinet.html',
+          controller: 'MedCabinetController',
 
+      })
     //   .when('/doctor/patientView', {
-    //       templateUrl: 'doctor/views/doctor_patientgraph.html'
+    //       templateUrl: 'doctor/views/doctor_patientgraph.html'   
     //   })
 
       .otherwise({

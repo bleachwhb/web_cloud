@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html ng-app="app">
 <head>
     <meta charset="utf-8">
@@ -78,7 +78,7 @@ function myFunction6() {
       <label><a id="toggle-age" class ="toggle-vis" data-column="2" onclick="myFunction3()"><span>- Age</span></a ></label>
       <label><a id="toggle-preapp" class ="toggle-vis" data-column="3" onclick="myFunction4()"><span>- Last Appointment</span></a ></label>
       <label><a id="toggle-nextapp" class ="toggle-vis" data-column="4" onclick="myFunction5()"><span>- Next Appointment</span></a ></label>
-      <label><a id="toggle-Medication" class ="toggle-vis" data-column="5" onclick="myFunction6()"><span>- Adherence %</span></a ></label>
+      <!--<label><a id="toggle-Medication" class ="toggle-vis" data-column="5" onclick="myFunction6()"><span>- Adherence %</span></a ></label>-->
 </div>
 
 </br>
@@ -95,72 +95,90 @@ function myFunction6() {
 
 </br>
 </br>
-<table id="example" class="display" cellspacing="0" width="100%">
+<div class="row" ng-controller="DoctorHomeController">
+    <!--<form editable-form name="editableForm" onaftersave="saveUser()">
+    <table class="table table-striped" id="editableUser" style="width:50%">
+        <tr>
+            <td style="width:20%">Name: </td>
+            <td style="width:80%"> <span editable-text="user.firstname" e-name="name" onaftersave="saveUser()" e-required>{{ user.firstname || 'empty' }}</span></td> 
+        </tr>
+        <tr>
+            <td style="width:20%">Age: </td>
+            <td style="width:80%"> <span editable-number="user.age" e-name="age" onaftersave="saveUser()" e-required>{{ user.age || 'empty' }}</span></td>
+        </tr>
+        <tr>
+            <td style="width:20%">Gender: </td>
+            <td style="width:80%"><span editable-text="user.gender" e-name="gender" onaftersave="saveUser()" e-required>{{ user.gender || 'empty' }}</span></td>
+        </tr>
+        <tr>
+            <td style="width:20%"> E-mail: </td>
+            <td style="width:80%"> <span editable-text="user.email" e-name="email" onaftersave="saveUser()" e-required>{{ user.email || 'empty' }}</span> </td>
+        </tr>
+        <tr>
+            <td style="width:20%"> Phone: </td>
+            <td style="width:80%"> <span editable-text="user.phone" e-name="phone" onaftersave="saveUser()" e-required>{{ user.phone || 'empty' }}</span> </td>
+        </tr>
+        <tr> <td style="width:40%"><button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">Edit</button>
+        <span ng-show="editableForm.$visible">
+            <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">Save</button>
+            <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                Cancel
+            </button>
+        </span></td></tr>
+    </table>
+    </form>-->
 
+
+
+
+   <table id="example" class="display" cellspacing="0" width="100%" class="table table-hover">
+        <!--<tr href="" ng-repeat="x in fullname track by $index"> 
+             <td>{{x}}</td>
+        </tr>-->
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Last Appointment</th>
-            <th>Next Appointment</th>
-            <th>Adherence %</th>
+            <th style="width:20%">Name</th>
+            <th style="width:20%">Age</th>
+            <th style="width:20%">Gender</th>
+            <th style="width:20%">Last Appointment</th>
+            <th style="width:20%">Next Appointment</th>
+            <!--<th style="width:20%">Adherence %</th>-->
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Tiger Nixon</td>
-            <td>Male</td>
-            <td>61</td>
-            <td>2011/04/22</td>
-            <td>2011/04/25</td>
-            <td>85%</td>
+       <form class="form-inline" role="form">
+        <tr ng-repeat="item in sortedName track by $index">
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.gender}}</td>
+                <td>{{item.appointment[0]}}</td>
+                <td>
+                     <div class=col-xs-7>
+                        <input type="date" class="form-control" ng-model="thistime" value="2014-01-13"/>
+                  </div>
+                &nbsp; &nbsp;&nbsp; &nbsp;
+                 <button ng-click="writePatientsInfo(item)">Save<button>
+                </td>
+                <!--<td><input type='text'></td>-->
+                <!--<td><input type='text'></td>-->
+        </tr>
+        <!--<input type="submit" value="submit"/>-->
+        <!--<input type="reset" value="reset"/>-->
+       </form>
+    </tbody>
+        <!--<tr>
+            <td style="width:20%">appointment start date: </td>
+            <td style="width:80%"> <span editable-text="appointment start date" e-name="appointment start date" onaftersave="saveUser()" e-required>{{ appointment start date || 'empty' }}</span></td>
         </tr>
         <tr>
-            <td>Garrett Winters</td>
-            <td>Male</td>
-            <td>63</td>
-            <td>2011/07/21</td>
-            <td>2011/07/25</td>
-            <td>70%</td>
-        </tr>
-        <tr>
-            <td>Ashton Cox</td>
-            <td>Female</td>
-            <td>66</td>
-            <td>2009/01/09</td>
-            <td>2009/01/12</td>
-            <td>86%</td>
-        </tr>
-        <tr>
-            <td>Cedric Kelly</td>
-            <td>Male</td>
-            <td>22</td>
-            <td>2012/03/18</td>
-            <td>2012/03/29</td>
-            <td>70%</td>
-        </tr>
-        <tr>
-            <td>Airi Satou</td>
-            <td>Female</td>
-            <td>33</td>
-            <td>2008/11/22</td>
-            <td>2008/11/28</td>
-            <td>62%</td>
-        </tr>
-        <tr>
-            <td>Brielle Williamson</td>
-            <td>Male</td>
-            <td>61</td>
-            <td>2012/11/25</td>
-            <td>2012/12/02</td>
-            <td>59%</td>
-        </tr>
-  </tbody>
-  </table>
+            <td style="width:20%">appointment end date </td>
+            <td style="width:80%"> <span editable-number="appointment end date" e-name="appointment end date" onaftersave="saveUser()" e-required>{{ user.age || 'empty' }}</span></td>
+        </tr>-->
+    </table>
+  </div>
 </div>
 
-<div class="row" ng-controller="DoctorHomeController">
+<!--<div class="row" ng-controller="DoctorHomeController">
     <div class="col-md-4">
       <h3 id="patientlist-title">Patients' List</h3>
       <div class="input-group">
@@ -177,7 +195,7 @@ function myFunction6() {
       </div>
     </div>
 
-</div>
+</div>-->
 
 </body>
 </html>

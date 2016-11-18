@@ -1,5 +1,5 @@
 angular.module('app')
-  .controller('DoctorHomeController', ['$scope', '$rootScope', 'Patient', '$timeout', '$http', function($scope, $rootScope, Patient,Appointment) {
+  .controller('DoctorHomeController', ['$scope', '$rootScope', 'Patient','$timeout', '$http', function($scope, $rootScope, Patient,Appointment) {
   console.log('reached home controller');
 //   $rootScope.user = {
 // 		firstname: $rootScope.currentUser.get('firstname'),
@@ -108,5 +108,18 @@ angular.module('app')
     // console.log(unsortedNames)
     }
     $scope.getPatientsInfo2();
-    
+    $scope.writePatientsInfo =function(item) {
+        var NextAppointment = Parse.Object.extend("Appointment");
+        var nextappointment = new NextAppointment;
+        nextappointment.save({
+            time: $scope.thistime
+        },{
+            success:function(nextappointment) {
+                alert('success');
+            },
+            error: function(nextappointment,error) {
+                alert(error.message);
+            }
+        });
+    }
 }]);

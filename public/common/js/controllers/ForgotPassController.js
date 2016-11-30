@@ -1,6 +1,6 @@
 angular.module('app')
   .controller('ForgotPassController',
-    ['$rootScope', '$scope', '$cookies', 'User', 'UI', '$location', 'APIService',
+    ['$rootScope', '$scope', '$cookies', 'User', 'UI', '$location', 'APIService', 
       function ($rootScope, $scope, $cookies, User, UI, $location, APIService) {
         // $scope.forgotPass = 
         // $scope.sendEmail = function() {
@@ -8,8 +8,16 @@ angular.module('app')
         //   console.log('receive send email')
         //   console.log($scope.userEmail)
         //   // APIUtility.
-        const urlRegex = require('url-regex');
-        console.log(urlRegex().test('http://github.com foo bar'))
+
+        var res
+        if ($location.$$path) {
+          var str = $location.$$path
+          res = str.replace("/resetpassword/", "")
+          console.log('res is ',res)
+        }
+        var location = window.location.href
+        var userEmail = location.slice(location.indexOf("&email=")+7,location.indexOf("&first"))
+        console.log('email is ', userEmail)
 
         // } 
         $scope.sendEmail = function (email) {
@@ -28,7 +36,11 @@ angular.module('app')
                 // $location.path('/login').replace();
                 // $rootScope.currentUser = null;
             });
-    };
+        };
+
+        
+
+
         
 
 }]);

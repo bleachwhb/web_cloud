@@ -16,4 +16,11 @@ angular.module('app')
             });
     };
 
+    $scope.isActive = function(viewLocation) {
+        locationPath = "/#".concat($location.path())
+        console.log('comparing ', viewLocation, ' and ', locationPath)
+        // console.log('isactive is ', viewLocation === locationPath)
+        return viewLocation === locationPath
+    }
+
   }]);

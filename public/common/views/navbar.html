@@ -1,5 +1,12 @@
-<div class="navbar">
-  <nav class="apb-nav" ng-controller="NavbarController">
+<style>
+.setColor { 
+    color: #fff;
+}
+
+</style>
+
+<div class="navbar" ng-controller="NavbarController">
+  <nav class="apb-nav">
     <div class="apb-logo">
       <a><span class="">APB System</span></a>
     </div>
@@ -30,19 +37,19 @@
     </div>
   </nav>
   <div class="apb-side" ng-show="user.type%2===1">
-    <a href="#/patient/home" class='apb-a'>
+    <a href="#/patient/home" class='apb-a' ng-class="{setColor: isActive('/#/patient/home')}">
       <i class="fa fa-stethoscope"></i> Patient Home</a>
-    <a href="#/patient/MedCabinet" class='apb-a'>
+    <a href="#/patient/MedCabinet" class='apb-a' ng-class="{setColor: isActive('/#/patient/MedCabinet')}">
       <i class="fa fa-plus-square"></i> Medicine Cabinet</a>
-    <a href="#/patient/appointments" class='apb-a' >
+    <a href="#/patient/appointments" class='apb-a' ng-class="{setColor: isActive('/#/patient/appointments')}">
       <i class="fa fa-calendar-check-o"></i> Appointments</a>
   </div>
   <div class="apb-side" ng-show="(user.type/10)%2===1">
-    <a href="#/doctor/home" class='apb-a'>
+    <a href="#/doctor/home" class='apb-a' ng-class="{setColor: isActive('/#/doctor/home')}">
       <i class="fa fa-stethoscope"></i> Doctor Home</a>
-    <a href="#/doctor/docpatient" class='apb-a'>
+    <a href="#/doctor/docpatient" class='apb-a' ng-class="{setColor: isActive('/#/doctor/docpatient')}">
       <i class="fa fa-stethoscope"></i> Patient Prescriptions</a>
-    <a href="#/doctor/graph" class='apb-a'>
+    <a href="#/doctor/graph" class='apb-a' ng-class="{setColor: isActive('/#/doctor/graph')}">
       <i class="fa fa-line-chart"></i> Patient Graphs</a>
   </div>
 </div>

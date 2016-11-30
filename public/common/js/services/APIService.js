@@ -112,6 +112,17 @@ angular.module('app')
           });
         return deferred.promise;
       },
+      GetAllPrescriptions: function(patientId) {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/doctor/patients/prescriptions')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
       AddPrescription: function(prescription) {
         var deferred = APIUtility.defer();
         APIUtility.POST('/doctor/patient/prescription', prescription)
@@ -200,5 +211,5 @@ angular.module('app')
         return deferred.promise;
       }
     }
-
+ 
   });

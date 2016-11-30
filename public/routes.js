@@ -1,5 +1,11 @@
 angular.module('app')
-    .config(function($routeProvider) {
+  .controller('ResetPasswordController', function($scope, $route, $routeParams, $location, $http) {
+     //password resetting functionality
+     console.log('$http')
+ })
+
+.config(function($routeProvider, $locationProvider) {
+
       $routeProvider
         // route for the home page
       .when('/', {
@@ -41,7 +47,8 @@ angular.module('app')
       })
       .when('/forgotpassword', {
           templateUrl : 'common/views/forgotpassword.html',
-          controller: 'ForgotPassController'
+          controller: 'ForgotPassController',
+          css: 'common/css/preLogin.css'
       })
       .when('/doctor/profile', {
           templateUrl : 'doctor/views/doctorprofile.html',
@@ -50,7 +57,7 @@ angular.module('app')
       .when('/patient/profile', {
           templateUrl : 'patient/views/patientprofile.html',
           controller  : 'PatientProfileController',
-          css         : 'patient/css/patientProfile.css'
+          css: 'patient/css/patientProfile.css'
       })
       .when('/patient/appointments', {
           templateUrl : 'patient/views/appointments.html',
@@ -80,11 +87,13 @@ angular.module('app')
           controller: 'MedCabinetController',
           css: 'patient/css/medcabinet.css'
       })
-      .when('/account*', {
-          templateUrl: 'patient/views/medCabinet.html',
-          controller: 'MedCabinetController',
+      .when('/account/:token', {
+          templateUrl: 'common/views/resetPassword.html',
+          controller: 'ForgotPassController',
+          css: 'common/css/preLogin.css'
+          //http://stackoverflow.com/questions/32918788/angularjs-forgot-password
 
-      })
+        })
     //   .when('/doctor/patientView', {
     //       templateUrl: 'doctor/views/doctor_patientgraph.html'   
     //   })

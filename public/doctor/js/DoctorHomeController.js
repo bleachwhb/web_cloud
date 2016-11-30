@@ -1,7 +1,25 @@
 angular.module('app')
-  .controller('DoctorHomeController', ['$scope', '$rootScope', '$location', 'Patient',
-    function($scope, $rootScope, $location, Patient) {
+  .controller('DoctorHomeController', ['$scope', '$rootScope', '$location', 'Patient', 'APIService',
+    function($scope, $rootScope, $location, Patient, APIService) {
       console.log('reached home controller');
+
+      APIService.GetAllPrescriptions()
+            .success(function(msg) {
+              console.log('msg is ', msg)
+                // $rootScope.sessionToken = null;
+                // $cookies.remove("sessionToken");
+                // $location.path('/login').replace();
+                // $rootScope.currentUser = null;
+            })  
+            .error(function(error) {
+                // alert('Error:' + error.code + ' ' + error.message);
+                // $location.path('/login').replace();
+                // $rootScope.currentUser = null;
+            });
+
+
+
+
 
       if ($rootScope.sessionToken === undefined) {
         $rootScope.beforeURL = $location.path();
@@ -11,15 +29,15 @@ angular.module('app')
             $rootScope.beforeURL = $location.path();
             $location.path("/");
           }
-      $rootScope.user = {
-      firstname: $rootScope.currentUser.get('firstname'),
-      lastname: $rootScope.currentUser.get('lastname'),
-      age: $rootScope.currentUser.get('age'),
-      gender: $rootScope.currentUser.get('gender'),
-      email: $rootScope.currentUser.get('email'),
-      phone: $rootScope.currentUser.get('phone'),
-          appointment: $rootScope.currentUser.get('Appointments')
-      };
+      // $rootScope.user = {
+      // firstname: $rootScope.currentUser.get('firstname'),
+      // lastname: $rootScope.currentUser.get('lastname'),
+      // age: $rootScope.currentUser.get('age'),
+      // gender: $rootScope.currentUser.get('gender'),
+      // email: $rootScope.currentUser.get('email'),
+      // phone: $rootScope.currentUser.get('phone'),
+      //     appointment: $rootScope.currentUser.get('Appointments')
+      // };
 
 	    $scope.getPatientsInfo2 = function() {
         // Parse.initialize("BDo39lSOtPuBwDfq0EBDgIjTzztIQE38Fuk03EcR", "ox76Y4RxB06A69JWAleRHSercHKomN2FVu61dfu3");
@@ -107,6 +125,8 @@ angular.module('app')
     // }
     // console.log(unsortedNames)
     };
-    $scope.getPatientsInfo2();
+    // $scope.getPatientsInfo2();
+
+    
     
 }]);

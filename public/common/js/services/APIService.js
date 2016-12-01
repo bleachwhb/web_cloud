@@ -90,6 +90,28 @@ angular.module('app')
           });
         return deferred.promise;
       },
+      GetDoctorAppointments: function () {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/doctor/appointments')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+      AddDoctorAppointment: function(data) {
+        var deferred = APIUtility.defer();
+        APIUtility.POST('/doctor/appointment', data)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
       GetPatientPrescription: function() {
         var deferred = APIUtility.defer();
         APIUtility.GET('/patient/prescription')

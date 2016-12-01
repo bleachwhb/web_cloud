@@ -1,3 +1,7 @@
+var answer;
+var count;
+
+
 'use strict';
 angular
 .module('app')
@@ -14,8 +18,9 @@ console.log("re");
 		else {
 			APIService.GetPatientPrescription()
 				.success(function(results) {
-					console.log("intesdfs");
-					console.log(results);
+					console.log(results.length);
+					answer = results;
+			document.getElementById("noPillFound").style.display = "none";
              for(var i=0;i<results.length;i++){
           var original = document.getElementById('medication');
                      var clone = original.cloneNode(true);
@@ -27,7 +32,10 @@ console.log("re");
 
                       pillTitle.innerHTML = pillTitle.innerHTML + results[i].name;
                       var pillNameAndInstruction = document.getElementById(clone.id).getElementsByClassName('pNameAndInstruction')[0];
+					  if (results[i].pill != null)
+					  {
                                pillNameAndInstruction.innerHTML = pillNameAndInstruction.innerHTML + "Name: " + results[i].pill.pillInfo + "<br>";
+					  }
                                var doctorSuggestion = document.getElementById(clone.id).getElementsByClassName('suggestion')[0];
                                doctorSuggestion.innerHTML = doctorSuggestion.innerHTML + results[i].note;
                               //  var pillLeft = document.getElementById(clone.id).getElementsByClassName('pillLeft')[0];
@@ -40,6 +48,36 @@ console.log("re");
 				});
 		}
 }]);
+
+function SearchPill() 
+{
+	count = 14;
+	var searchcontent = document.getElementById("search-text").value;
+	console.log(searchcontent);
+	for (var i=0; i<answer.length; i++)
+	{
+		var j = i+1;
+		var name = "medication"+ j;
+		console.log(name);
+		if (document.getElementById(name) != null)
+		{
+			var pillTitle = document.getElementById(name).getElementsByClassName("firstmed")[0];
+			console.log(pillTitle.innerHTML);
+			console.log(searchcontent);
+			if (pillTitle.innerHTML != searchcontent)
+			{
+				document.getElementById(name).style.display = "none";
+				count--;
+			}
+		}
+	}
+	if (count ==0)
+	{
+		document.getElementById("noPillFound").style.display = "";
+	}
+		
+}
+
 
 
 // angular

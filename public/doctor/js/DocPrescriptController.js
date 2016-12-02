@@ -26,7 +26,13 @@ angular.module('app')
         $scope.getPatientPrescription = function(patient) {
           $scope.togglePatient = patient;
           //Get patients prescription
-
+          APIService.GetPrescription(patient.patientId)
+            .success(function(results) {
+              $scope.prescriptions = results;
+            })
+            .error(function(error) {
+              alert(error.code + ' ' + error.message);
+            });
         };
 
         $scope.addPrescription = function(patient) {

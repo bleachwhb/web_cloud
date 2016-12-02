@@ -14,6 +14,7 @@ angular
 			APIService.GetPatientPrescription()
 				.success(function(results) {
 					console.log(results);
+					$scope.prescription = results;
 				})
 				.error(function(error) {
 					alert(error.code + ' ' + error.message);

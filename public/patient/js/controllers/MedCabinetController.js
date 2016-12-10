@@ -1,5 +1,6 @@
 var answer;
 var count;
+var flag;
 
 
 'use strict';
@@ -53,6 +54,7 @@ function SearchPill()
 {
 	count = 14;
 	var searchcontent = document.getElementById("search-text").value;
+	flag = false;
 	console.log(searchcontent);
 	for (var i=0; i<answer.length; i++)
 	{
@@ -69,12 +71,16 @@ function SearchPill()
 				document.getElementById(name).style.display = "none";
 				count--;
 			}
+			else {
+				flag= true;
+			}
 		}
 	}
-	if (count ==0)
+	if (not (flag))
 	{
 		document.getElementById("noPillFound").style.display = "";
 	}
+	
 		
 }
 

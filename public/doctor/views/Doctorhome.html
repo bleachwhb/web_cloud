@@ -1,5 +1,36 @@
-﻿
-<div class="row">
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Doctor - Patient Prescription Page</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+    <script type="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+    <script src="doctor/js/jqueryDataTables.js"></script>
+    <script src="doctor/js/Table.js"></script>
+</head>
+    <script>
+        function toggleActive(element){
+            //should only be one
+            var actives = document.getElementsByClassName("list-group-item active");
+            for (var i = 0; i < actives.length; i++){
+                actives[i].className = "list-group-item";
+            }
+            element.className = "list-group-item active";
+            var drugs = document.getElementsByClassName("drug");
+            for (var d = 0; d < drugs.length; d++){
+                if (element.textContent.length > 20) {
+                    drugs[d].textContent = document.getElementById("firstPatient").textContent + "'s Drug " + (d+1);
+                }
+                else {
+                    drugs[d].textContent = element.textContent + "'s Drug " + (d+1);
+                }
+            }
+        };
+    </script>
+
+<div class="container" style="margin: auto">
     <h2>Patient Information</h2>
     <div>
         Toggle column:
@@ -130,3 +161,4 @@
 
 </div>-->
 
+</html>

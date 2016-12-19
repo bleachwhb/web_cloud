@@ -127,7 +127,7 @@ angular.module('app')
         var deferred = APIUtility.defer();
         APIUtility.GET('/doctor/patient/prescription' + '?patientId=' + patientId)
           .then(function (data, status, headers, config) {
-            console.log(data);
+            // console.log(data);
             return deferred.resolve(data.data);
           }, function (data, status, header, config) {
             return deferred.reject(data.data)

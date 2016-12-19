@@ -27,6 +27,10 @@ angular.module('app')
           alert(error.code + ' ' + error.message);
         })
     }
+    // client.set('framework', 'AngularJS');
+    // client.get('framework', function(err, reply) {
+    //     console.log(reply);
+    // });
 
     $scope.addNewAppointment = function(appointment) {
       var data = {

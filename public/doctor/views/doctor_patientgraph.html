@@ -1,20 +1,25 @@
 
   <div class="row" ng-controller="patient_graphCtrl">
-    <div class="col-md-4">
-      <h3 id="patientlist-title">Patients' List</h3>
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for a patient">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Search</button>
-          </span>
-      </div>
+      <div class="col-md-4">
+        <h3 id="patientlist-title">Patients List</h3>
+        <div class="input-group">
+            <input type="text" id="SearchText" class="form-control" placeholder="Search for a patient">
+            <span class="input-group-btn">
+      <button class="btn btn-default" id="SearchPatient" type="button" ng-click="searchPatient()">Search</button>
+    </span>
+        </div>
 
-      <div class="list-group" id="patien_names">
-        <a href="" ng-repeat="x in sortedName track by $index" class="list-group-item" ng-click="patientClicked(x)">
-          <h4 class="list-group-item-heading">{{x}}</h4>
-        </a>
-      </div>
+        <div class="list-group" id="patient_names">
+            <div ng-repeat="patient in patients">
+                <a class="list-group-item" ng-click="retrieveData(patient)"
+                   ng-class="{'active': togglePatient.patientId===patient.patientId}">
+                    <h4 class="list-group-item-heading">{{patient.firstName}} {{patient.lastName}}</h4>
+                </a>
+            </div>
+        </div>
     </div>
+    
+
 
   <div class="col-md-8">
 
@@ -69,4 +74,3 @@
 
   </div>
 </div>
-

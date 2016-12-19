@@ -1,6 +1,6 @@
 angular.module('app')
   .controller('NavbarController', ['$rootScope', '$scope', '$location', '$cookies', 'APIService', function ($rootScope, $scope, $location, $cookies, APIService) {
-    console.log($rootScope.user);
+    // console.log($rootScope.user);
     $scope.logOut = function () {
         APIService.LogOut()
             .success(function() {
@@ -18,7 +18,7 @@ angular.module('app')
 
     $scope.isActive = function(viewLocation) {
         locationPath = "/#".concat($location.path())
-        console.log('comparing ', viewLocation, ' and ', locationPath)
+        // console.log('comparing ', viewLocation, ' and ', locationPath)
         // console.log('isactive is ', viewLocation === locationPath)
         return viewLocation === locationPath
     }

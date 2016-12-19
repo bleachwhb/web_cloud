@@ -80,7 +80,7 @@ angular.module('app')
                 for (k in $scope.prescriptions[i].times[j].days) {
                   if ($scope.prescriptions[i].times[j].days[k].amount != null) {
                     console.log("name is ", $scope.prescriptions[i].times[j].days[k].name)
-                    console.log("time is ", ISODate($scope.prescriptions[i].times[j].time))
+                    console.log("time is ", $scope.prescriptions[i].times[j].time)
                     console.log("hour is ", $scope.prescriptions[i].times[j].time.getHours())
 
                   }

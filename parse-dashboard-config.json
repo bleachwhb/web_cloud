@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "serverURL": "http://localhost:5000/parse",
+      "appId": "myAppId",
+      "masterKey": "myMasterKey",
+      "appName": "AdherencePillProject"
+    }
+  ]
+}

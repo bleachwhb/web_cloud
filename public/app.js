@@ -5,7 +5,8 @@ var app = angular.module('app', [
   'oc.lazyLoad',
   'ui.bootstrap',
   'ui.bootstrap.datetimepicker',
-  'ngCookies'
+  'ngCookies',
+  'ngSanitize'
 ]);
 
 app.run(['$rootScope', '$location', function($rootScope, $location) {
@@ -19,3 +20,4 @@ app.run(['$rootScope', '$location', function($rootScope, $location) {
   // $rootScope.apiServer = 'http://localhost:5000';
   $rootScope.apiServer = 'http://129.105.36.93:5000';   //Online Server //http://129.105.36.93:5000
 }]);
+

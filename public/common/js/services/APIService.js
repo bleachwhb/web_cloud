@@ -231,6 +231,17 @@ angular.module('app')
             })
           });
         return deferred.promise;
+      },
+      GetBottles: function() {
+        var deferred = APIUtility.defer();
+        APIUtility.GET('/doctor/patients/prescription')
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
       }
     }
  

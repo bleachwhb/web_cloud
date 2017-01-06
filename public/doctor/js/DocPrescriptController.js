@@ -93,6 +93,16 @@ angular.module('app')
         alert(error.code + ' ' + error.message);
       });
 
+    APIService.GetBottles()
+      .success(function(results) {
+        console.log(results);
+        $scope.bottles = results;
+      })
+      .error(function(error) {
+        alert(error.code + ' ' + error.message);
+      });
+    console.log("bottle list is ", $scope.bottles)
+
     $scope.patient = patient;
     $scope.prescriptionName = '';
     var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -142,7 +152,8 @@ angular.module('app')
         patientId: $scope.patient.patientId,
         pillId: $scope.selected.pillId,
         name: $scope.prescriptionName,
-        note: $scope.note
+        note: $scope.note,
+        pillBottle: $scope.selected.pillBottle
       };
       prescription['times'] = [];
       $scope.times.forEach(function(time) {

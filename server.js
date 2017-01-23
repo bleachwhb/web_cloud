@@ -1,5 +1,5 @@
 
-var redis = require('redis');
+// var redis = require('redis');
 var express = require('express');
 var http = require('http');
 var app = express();

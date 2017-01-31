@@ -234,7 +234,7 @@ angular.module('app')
       },
       GetBottles: function() {
         var deferred = APIUtility.defer();
-        APIUtility.GET('/doctor/patients/prescription')
+        APIUtility.GET('/doctor/patients/prescriptions')
           .then(function (data, status, headers, config) {
             console.log(data);
             return deferred.resolve(data.data);

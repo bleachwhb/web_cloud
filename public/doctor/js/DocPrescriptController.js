@@ -24,6 +24,7 @@ angular.module('app')
           });
 
         $scope.getPatientPrescription = function(patient) {
+          console.log("patient ID is ", patient)
           $scope.togglePatient = patient;
           //Get patients prescription
           APIService.GetPrescription(patient.patientId)
@@ -92,16 +93,23 @@ angular.module('app')
       .error(function(error) {
         alert(error.code + ' ' + error.message);
       });
-
+      
     APIService.GetBottles()
       .success(function(results) {
-        console.log(results);
+        console.log("bottles are ", results);
         $scope.bottles = results;
+        console.log("adding that to bottles  scope", results['E4pueXvpfv'].bottle) // for now because issue with sidebar
+
+
       })
       .error(function(error) {
         alert(error.code + ' ' + error.message);
-      });
-    console.log("bottle list is ", $scope.bottles)
+      })
+  
+
+    // console.log("bottle list is ", $scope.bottles)
+
+  
 
     $scope.patient = patient;
     $scope.prescriptionName = '';

@@ -1,7 +1,7 @@
 angular.module('app')
   .controller('patient_graphCtrl', ['$scope', '$rootScope', '$location', 'APIService',
     function($scope, $rootScope, $location, APIService) {
-    
+
 
 
     function getDays(day) {
@@ -20,7 +20,7 @@ angular.module('app')
       }
       return dayList;
     }
- 
+
     if ($rootScope.sessionToken === undefined) {
       $rootScope.beforeURL = $location.path();
       $location.path("/");
@@ -33,7 +33,7 @@ angular.module('app')
             APIService.GetPrescription(results[0].patientId)
               .success(function(results) {
                 $scope.prescriptions = results;
-                // $scope.prescTimes = 
+                // $scope.prescTimes =
               })
               .error(function(error) {
                 alert(error.code + ' ' + error.message);
@@ -48,7 +48,7 @@ angular.module('app')
           APIService.GetPrescription(patient.patientId)
             .success(function(results) {
               $scope.prescriptions = results;
-              // console.log("one prescription is", $scope.prescriptions)
+  //            console.log("one prescription is", $scope.prescriptions)
             })
             .error(function(error) {
               alert(error.code + ' ' + error.message);
@@ -74,25 +74,27 @@ angular.module('app')
 
     var chartI = 0
 
+
     $scope.retrieveData = function(patient) {
 
         patientName = patient.firstName + " " + patient.lastName
-        // console.log("patient name is ", patientName)
+        //console.log("patient name is ", patientName)
 
         var pillData = []
         var prescriptionPoints = []
 
         $scope.getPatientPrescription(patient)
-        console.log($scope.prescriptions)
+        //console.log($scope.prescriptions)
         for (i in $scope.prescriptions) {
 
           // RETRIEVE THE CORRECT DATA
           for (j in $scope.prescriptions[i].times) {
               for (k in $scope.prescriptions[i].times[j].days) {
-                if ($scope.prescriptions[i].times[j].days[k].amount != null) {
-                  console.log("name is ", $scope.prescriptions[i].times[j].days[k].name)
+                if ($scope.prescriptions[i].times[j].days[k].amount > 0) {
+                  //console.log("name is ", $scope.prescriptions[i].times[j].days[k].name)
                   var pList = getDays(dateToNum[$scope.prescriptions[i].times[j].days[k].name])
                   var hr = getHr($scope.prescriptions[i].times[j].time)
+  //                console.log(hr)
                   for (x in pList) {
                       prescriptionPoints.push({
                           x: pList[x],
@@ -110,11 +112,12 @@ angular.module('app')
           // CREATE THE GRAPH
           var chartID = "myChart" + i.toString()
 
+/*
           $scope.data = [{
               type: "line",
               dataPoints: prescriptionPoints
           }]
-
+*/
           $scope.chart = new CanvasJS.Chart(chartID, {
               title:{
                   text: patientName + "'s Graph"
@@ -124,9 +127,12 @@ angular.module('app')
                   gridThickness: 2
               },
               axisY: {
-                  title: "Hour"
+                  title: "Time"
               },
-              data: $scope.data
+              data: [{type: "line",
+                      dataPoints: prescriptionPoints.slice(0,10)},
+                     {type: "line",
+                     dataPoints: prescriptionPoints.slice(prescriptionPoints.length - 14)}]
           });
           $scope.chart.render()
 
@@ -134,15 +140,16 @@ angular.module('app')
           var pillData = []
           var prescriptionPoints = []
           chartI = i
-          console.log("chartI updated to ", chartI, " from ", i)
+    //      console.log("chartI updated to ", chartI, " from ", i)
           // begin next iteration
 
       }
 
-      
+
 
     }
 
+/*
     var chartList = ""
     console.log("chartI is", chartI)
     for (i=0; i < chartI+1; i++) {
@@ -152,9 +159,9 @@ angular.module('app')
     console.log("chartlist is ", chartList)
 
     $scope.myHTML = chartList
+*/
 
 
-    
 
 
 }]);

@@ -59,7 +59,7 @@ angular.module('app')
 
     function getHr(element) {
           var n = element.indexOf('T')
-          return Number(element.substring(n+1,n+3))
+          return Number(element.substring(n+1,n+3)) - 5
     }
 
     var dateToNum = {
@@ -130,7 +130,7 @@ angular.module('app')
                   title: "Time"
               },
               data: [{type: "line",
-                      dataPoints: prescriptionPoints.slice(0,10)},
+                      dataPoints: prescriptionPoints.slice(0, 10)},
                      {type: "line",
                      dataPoints: prescriptionPoints.slice(prescriptionPoints.length - 14)}]
           });

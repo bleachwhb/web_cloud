@@ -232,6 +232,20 @@ angular.module('app')
           });
         return deferred.promise;
       },
+
+      GetPatientBottles: function(patientID) {
+        var deferred = APIUtility.defer();
+        var bottleURL = '/doctor/patient/bottles?patientId='.concat(patientID)
+        APIUtility.GET(bottleURL)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
+
       GetBottles: function() {
         var deferred = APIUtility.defer();
         APIUtility.GET('/doctor/patients/prescriptions')
@@ -244,5 +258,7 @@ angular.module('app')
         return deferred.promise;
       }
     }
+
+    
  
   });

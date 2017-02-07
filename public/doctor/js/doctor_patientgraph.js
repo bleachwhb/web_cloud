@@ -1,6 +1,7 @@
 angular.module('app')
   .controller('patient_graphCtrl', ['$scope', '$rootScope', '$location', 'APIService',
     function($scope, $rootScope, $location, APIService) {
+    bottleUpdateList = []
 
     function getDays(day) {
       var d = new Date(),
@@ -50,8 +51,17 @@ angular.module('app')
               alert(error.code + ' ' + error.message);
             });
         };
+        APIService.GetPatientBottles('H6RNuGEzgw')
+        .success(function(results) {
+          $scope.bottleInfo = results;
+          console.log("patient bottles are ", $scope.bottleInfo)
+        })
+        .error(function(error) {
+          alert(error.code + ' ' + error.message);
+        });
 
     };
+
 
     function getHr(element) {
           var n = element.indexOf('T')
@@ -111,38 +121,72 @@ angular.module('app')
                 }
               }
           }
+        }
 
-      }
-         $scope.data = []
+       $scope.data = []
 
-          for (i in prescriptionPoints) {
-            for (j in prescriptionPoints[i]) {
-              $scope.data.push({
-                type: "line",
-                dataPoints: prescriptionPoints[i][j]
-              })
-            }
+        for (i in prescriptionPoints) {
+          for (j in prescriptionPoints[i]) {
+            console.log("prescription points are ", prescriptionPoints[i][j])
+            $scope.data.push({
+              type: "line",
+              dataPoints: prescriptionPoints[i][j]
+            })
           }
+        }
+
+
+        // retrieve bottle
+        function getBottleDay(date) {
+          var newDate = new Date(date.substring(10,18))
+          return newDate
+        }
+
+        function getBottleHour(date) {
+          var newHour = date.substring(0, 2)
+          return newHour
+        }
+        for (bott in $scope.bottleInfo) {
+            for (j in $scope.bottleInfo[bott].updates) {
+                bottleUpdateList.push($scope.bottleInfo[bott].updates[j].timestamp)
+
+            }
+        }
+        bottleDayList = []
+        bottleHourList = []
+        var bottlePoints = []
+
+        console.log(bottleUpdateList)
+        for (date in bottleUpdateList) {
+          bottlePoints.push({
+            x: getBottleDay(bottleUpdateList[date]),
+            y: getBottleHour(bottleUpdateList[date])
+          })
+        }
+        // console.log(bottlePoints)
+        console.log("data is ", $scope.data)
+        // $scope.data.push({
+        //     type: "line",
+        //     dataPoints: bottlePoints
+        //   })
 
 
 
-              $scope.chart = new CanvasJS.Chart("myChart0", {
-                    title:{
-                        text: patientName + "'s Graph"
-                    },
-                    axisX:{
-                        title: "Date",
-                        gridThickness: 2
-                    },
-                    axisY: {
-                        title: "Time"
-                    },
-                    data: $scope.data
-                });
-                $scope.chart.render()
 
-
-
+    $scope.chart = new CanvasJS.Chart("myChart0", {
+          title:{
+              text: patientName + "'s Graph"
+          },
+          axisX:{
+              title: "Date",
+              gridThickness: 2
+          },
+          axisY: {
+              title: "Time"
+          },
+          data: $scope.data
+      });
+      $scope.chart.render()
     }
 
 

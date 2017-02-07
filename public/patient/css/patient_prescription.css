@@ -80,6 +80,16 @@
 #doctor-select-dropdown {
 	width: 100%;
 }
+
+#pill-select-dropdown {
+	width: 100%;
+}
+
+#bottle-select-dropdown {
+	width: 100%;
+}
+
+
 p.input-group {
 	width: 80%;
 	padding-left: 12px;

@@ -84,10 +84,10 @@ angular.module('app')
 
 angular.module('app')
   .controller('addPrescriptionCtrl', function ($scope, $uibModalInstance, patient, APIService) {
-
+    // $scope.bot = []
     APIService.GetPills()
       .success(function(results) {
-        console.log(results);
+        console.log("pills are ",results);
         $scope.pills = results;
       })
       .error(function(error) {
@@ -97,15 +97,22 @@ angular.module('app')
     APIService.GetBottles()
       .success(function(results) {
         console.log("bottles are ", results);
+        $scope.bottle = []
         $scope.bottles = results;
         console.log("adding that to bottles  scope", results['E4pueXvpfv'].bottle) // for now because issue with sidebar
-
+        for (i=0; i < results['E4pueXvpfv'].bottle.length; i++) {
+           $scope.bottle.push(results['E4pueXvpfv'].bottle[i]);
+        }
 
       })
       .error(function(error) {
         alert(error.code + ' ' + error.message);
       })
-  
+      // wait(5)
+
+      // console.log("bottle names are", $scope.bottleName)
+
+
 
     // console.log("bottle list is ", $scope.bottles)
 
@@ -144,9 +151,19 @@ angular.module('app')
 
     };
 
-    $scope.select = function(pill) {
-      $scope.selected = pill;
+    // $scope.select = function(pill) {
+    //   $scope.selected = pill;
+    // };
+
+    $scope.selectPill = function(pill) {
+      $scope.selectedPill = pill;
     };
+
+    $scope.selectBottle = function(bot) {
+      $scope.selectedBottle = bot;
+    };
+
+
 
     $scope.deleteTime = function(time) {
       $scope.times = $scope.times.filter(function(t) {
@@ -158,11 +175,14 @@ angular.module('app')
     $scope.ok = function () {
       var prescription = {
         patientId: $scope.patient.patientId,
-        pillId: $scope.selected.pillId,
+        pillId: $scope.selectedPill.pillId,
         name: $scope.prescriptionName,
         note: $scope.note,
-        pillBottle: $scope.selected.pillBottle
+        pillBottle: $scope.selectedBottle
       };
+      // console.log("selected nem is ", $scope.selected.name)
+      // console.log("selected pill is ", $scope.selectedPill)
+
       prescription['times'] = [];
       $scope.times.forEach(function(time) {
         prescription['times'].push({
@@ -181,6 +201,7 @@ angular.module('app')
         });
 
     };
+
 
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');

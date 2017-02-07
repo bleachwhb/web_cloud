@@ -2,8 +2,6 @@ angular.module('app')
   .controller('patient_graphCtrl', ['$scope', '$rootScope', '$location', 'APIService',
     function($scope, $rootScope, $location, APIService) {
 
-
-
     function getDays(day) {
       var d = new Date(),
         month = d.getMonth(),
@@ -33,7 +31,6 @@ angular.module('app')
             APIService.GetPrescription(results[0].patientId)
               .success(function(results) {
                 $scope.prescriptions = results;
-                // $scope.prescTimes =
               })
               .error(function(error) {
                 alert(error.code + ' ' + error.message);
@@ -48,7 +45,6 @@ angular.module('app')
           APIService.GetPrescription(patient.patientId)
             .success(function(results) {
               $scope.prescriptions = results;
-  //            console.log("one prescription is", $scope.prescriptions)
             })
             .error(function(error) {
               alert(error.code + ' ' + error.message);
@@ -74,29 +70,37 @@ angular.module('app')
 
     var chartI = 0
 
+    var prescriptionPoints;
 
     $scope.retrieveData = function(patient) {
 
         patientName = patient.firstName + " " + patient.lastName
-        //console.log("patient name is ", patientName)
 
         var pillData = []
-        var prescriptionPoints = []
+
+
+
+        var prescriptionPoints = new Array();
+
+        for (m =0; m < $scope.prescriptions.length; m++) {
+          prescriptionPoints[m] = new Array();
+          for (n = 0; n < $scope.prescriptions[m].times.length; n++) {
+              prescriptionPoints[m][n] = new Array();
+          }
+        }
+
 
         $scope.getPatientPrescription(patient)
-        //console.log($scope.prescriptions)
         for (i in $scope.prescriptions) {
 
           // RETRIEVE THE CORRECT DATA
           for (j in $scope.prescriptions[i].times) {
               for (k in $scope.prescriptions[i].times[j].days) {
                 if ($scope.prescriptions[i].times[j].days[k].amount > 0) {
-                  //console.log("name is ", $scope.prescriptions[i].times[j].days[k].name)
                   var pList = getDays(dateToNum[$scope.prescriptions[i].times[j].days[k].name])
                   var hr = getHr($scope.prescriptions[i].times[j].time)
-  //                console.log(hr)
                   for (x in pList) {
-                      prescriptionPoints.push({
+                      prescriptionPoints[i][j].push({
                           x: pList[x],
                           y: hr
                       })
@@ -108,58 +112,39 @@ angular.module('app')
               }
           }
 
-
-          // CREATE THE GRAPH
-          var chartID = "myChart" + i.toString()
-
-/*
-          $scope.data = [{
-              type: "line",
-              dataPoints: prescriptionPoints
-          }]
-*/
-          $scope.chart = new CanvasJS.Chart(chartID, {
-              title:{
-                  text: patientName + "'s Graph"
-              },
-              axisX:{
-                  title: "Date",
-                  gridThickness: 2
-              },
-              axisY: {
-                  title: "Time"
-              },
-              data: [{type: "line",
-                      dataPoints: prescriptionPoints.slice(0, 10)},
-                     {type: "line",
-                     dataPoints: prescriptionPoints.slice(prescriptionPoints.length - 14)}]
-          });
-          $scope.chart.render()
-
-          // clear out fields
-          var pillData = []
-          var prescriptionPoints = []
-          chartI = i
-    //      console.log("chartI updated to ", chartI, " from ", i)
-          // begin next iteration
-
       }
+         $scope.data = []
+
+          for (i in prescriptionPoints) {
+            for (j in prescriptionPoints[i]) {
+              $scope.data.push({
+                type: "line",
+                dataPoints: prescriptionPoints[i][j]
+              })
+            }
+          }
+
+
+
+              $scope.chart = new CanvasJS.Chart("myChart0", {
+                    title:{
+                        text: patientName + "'s Graph"
+                    },
+                    axisX:{
+                        title: "Date",
+                        gridThickness: 2
+                    },
+                    axisY: {
+                        title: "Time"
+                    },
+                    data: $scope.data
+                });
+                $scope.chart.render()
 
 
 
     }
 
-/*
-    var chartList = ""
-    console.log("chartI is", chartI)
-    for (i=0; i < chartI+1; i++) {
-      var curr = '<div id="myChart' + i.toString() + '"></div>'
-      chartList = chartList + curr
-    }
-    console.log("chartlist is ", chartList)
-
-    $scope.myHTML = chartList
-*/
 
 
 

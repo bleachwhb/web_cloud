@@ -16,6 +16,37 @@ angular.module('app')
       monthView = false
     }
 
+    function datesFallInCurrentWeek(bottleList) {
+      console.log(bottleList.length);
+      selectedDates = []
+      for (i = 0 ; i < bottleList.length; i++) {
+        if (checkDatesWithinRange(bottleList[i].substring(10), monthView)) {
+          selectedDates.push(bottleList[i]);
+        }
+      }
+      return selectedDates;
+    }
+
+    function checkDatesWithinRange(day, val) {
+      var dateFrom1 = "02/27/2017";
+      var dateTo1 = "03/05/2017";
+      var dateFrom2 = "03/01/2017";
+      var dateTo2 = "03/31/2017";
+      var dateCheck = day;
+
+      var from, to
+      if (val) {
+        from = Date.parse(dateFrom2);
+        to   = Date.parse(dateTo2);
+      } else {
+        from = Date.parse(dateFrom1);
+        to   = Date.parse(dateTo1);
+      }
+      var check = Date.parse(dateCheck);
+
+      return (check <= to && check >= from);
+    }
+
     function getDays(day) {
       var d = new Date(),
         month = d.getMonth(),
@@ -256,7 +287,7 @@ angular.module('app')
 
 
         for (i in prescriptionPoints) {
-            console.log("prescription points are ", prescriptionPoints[i])
+//            console.log("prescription points are ", prescriptionPoints[i])
             $scope.data.push({
               type: "scatter",
               color: "#778899",
@@ -290,6 +321,10 @@ angular.module('app')
                 bottleUpdateList.push($scope.bottleInfo[bott].updates[j].timestamp)
             }
         }
+
+        bottleUpdateList = datesFallInCurrentWeek(bottleUpdateList);
+        console.log(bottleUpdateList.length);
+
         bottleDayList = []
         bottleHourList = []
         var bottlePoints = []

@@ -3,6 +3,19 @@ angular.module('app')
     function($scope, $rootScope, $location, APIService) {
     bottleUpdateList = []
 
+    var monthView = true
+    var weekView = false
+
+    $scope.switchMonthView = function(){
+      monthView = true
+      weekView = false
+    }
+
+    $scope.switchWeekView = function(){
+      weekView = true
+      monthView = false
+    }
+
     function getDays(day) {
       var d = new Date(),
         month = d.getMonth(),
@@ -12,10 +25,16 @@ angular.module('app')
       while (d.getDay() !== day) {
         d.setDate(d.getDate() + 1);
       }
-      // Get all the other Mondays in the month
-      while (d.getMonth() === month) {
-        dayList.push(new Date(d.getTime()));
+
+      if (weekView) {
         d.setDate(d.getDate() + 7);
+        dayList.push(new Date(d.getTime()));
+      } else if (monthView) {
+          // Get all the other Mondays in the month
+          while (d.getMonth() === month) {
+            d.setDate(d.getDate() + 7);
+            dayList.push(new Date(d.getTime()));
+          }
       }
       return dayList;
     }
@@ -32,7 +51,6 @@ angular.module('app')
             APIService.GetPrescription(results[0].patientId)
               .success(function(results) {
                 $scope.prescriptions = results;
-                // console.log($scope.prescriptions.name);
               })
               .error(function(error) {
                 alert(error.code + ' ' + error.message);
@@ -76,7 +94,7 @@ angular.module('app')
 
     function getHr(element) {
           var n = element.indexOf('T')
-          return Number(element.substring(n+1,n+3)) - 5
+          return Number(element.substring(n+1,n+3)) - 6
     }
 
     var dateToNum = {
@@ -210,11 +228,11 @@ angular.module('app')
 
         var prescriptionPoints = new Array();
 
-      
+
         for (n = 0; n < prescription.times.length; n++) {
             prescriptionPoints[n] = new Array();
         }
-    
+
 
         // RETRIEVE THE CORRECT DATA
         for (j in prescription.times) {
@@ -234,7 +252,7 @@ angular.module('app')
               }
             }
         }
-    
+
 
 
         for (i in prescriptionPoints) {
@@ -303,7 +321,7 @@ angular.module('app')
                   gridThickness: 2
               },
               axisY: {
-                  title: "Time"
+                  title: "Time (hr)"
               },
               data: $scope.data
           });

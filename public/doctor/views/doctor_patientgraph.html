@@ -28,7 +28,7 @@
       
       <div class="btn-group dropdown" role="group">
         <button type="button" id="view" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span id="view-text">Current </span>
+          <span id="view-text">Prescriptions</span>
           <span class="caret"></span>
         </button>
 
@@ -44,20 +44,20 @@
       <!-- switch view -->
       <div class="btn-group dropdown" role="group">
         <button type="button" id="view" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span id="view-text">Week</span>
+          <span id="view-text">View</span>
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li><a href="javascript:void(0)" id="week-view" ng-click="switchWeekView()">Week</a></li>
           <li><a href="javascript:void(0)" id="month-view" ng-click="switchMonthView()">Month</a></li>
-          <li><a href="javascript:void(0)" id="customize-view" data-toggle="modal" data-target="#myModal">Customize</a></li>
+          <li><a href="javascript:void(0)" id="customize-view" ng-click="switchAllTimeView()">All-time</a></li>
         </ul>
       </div>
 
 
     </div>
     
-    <!-- Modal for Choosing Customized Date-->
+    <!--
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -82,6 +82,7 @@
         </div>
       </div>
     </div>
+Modal for Choosing Customized Date-->
 
     <div class="col-xs-12">
         <div id="myChart0"></div>

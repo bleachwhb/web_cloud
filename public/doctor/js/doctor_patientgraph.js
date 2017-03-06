@@ -2,6 +2,7 @@ angular.module('app')
   .controller('patient_graphCtrl', ['$scope', '$rootScope', '$location', 'APIService',
     function($scope, $rootScope, $location, APIService) {
     bottleUpdateList = []
+    var presc
 
     var monthView = true
     var weekView = false
@@ -9,15 +10,23 @@ angular.module('app')
     $scope.switchMonthView = function(){
       monthView = true
       weekView = false
+        $scope.retrievePrescription(presc);
     }
 
     $scope.switchWeekView = function(){
       weekView = true
       monthView = false
+        $scope.retrievePrescription(presc);
+    }
+
+    $scope.switchAllTimeView = function() {
+        monthView = false;
+        weekView = false;
+        //console.log(prescName)
     }
 
     function datesFallInCurrentWeek(bottleList) {
-      console.log(bottleList.length);
+        console.log(bottleList.length);
       selectedDates = []
       for (i = 0 ; i < bottleList.length; i++) {
         if (checkDatesWithinRange(bottleList[i].substring(10), monthView)) {
@@ -28,8 +37,8 @@ angular.module('app')
     }
 
     function checkDatesWithinRange(day, val) {
-      var dateFrom1 = "02/27/2017";
-      var dateTo1 = "03/05/2017";
+      var dateFrom1 = "03/05/2017";
+      var dateTo1 = "03/11/2017";
       var dateFrom2 = "03/01/2017";
       var dateTo2 = "03/31/2017";
       var dateCheck = day;
@@ -57,15 +66,22 @@ angular.module('app')
         d.setDate(d.getDate() + 1);
       }
 
+      var today = new Date();
+
       if (weekView) {
-        d.setDate(d.getDate() + 7);
-        dayList.push(new Date(d.getTime()));
-      } else if (monthView) {
-          // Get all the other Mondays in the month
-          while (d.getMonth() === month) {
-            d.setDate(d.getDate() + 7);
-            dayList.push(new Date(d.getTime()));
+        d.setDate(d.getDate());
+          if (today.getTime() >= d.getTime()) {
+              dayList.push(new Date(d.getTime()));
           }
+      } else if (monthView) {
+          while (d.getMonth() === month) {
+              if (today.getTime() >= d.getTime()) {
+                dayList.push(new Date(d.getTime()));
+              }
+              d.setDate(d.getDate() - 7);
+          }
+      } else {
+
       }
       return dayList;
     }
@@ -113,10 +129,10 @@ angular.module('app')
         APIService.GetRelatedBottles('8FJOGrTheH')
           .success(function(results) {
             $scope.bottleInfo = results;
-            console.log("service called ", $scope.bottleInfo)
+ //           console.log("service called ", $scope.bottleInfo)
           })
           .error(function(error) {
-            console.log("serviced failed")
+ //           console.log("serviced failed")
             alert(error.code + ' ' + error.message);
           });
 
@@ -251,8 +267,9 @@ angular.module('app')
     $scope.retrievePrescription = function(prescription) {
 
         // FIRST DEAL WITH PRESCRIPTIONS
-
+        presc = prescription
         prescName = prescription.name
+
         $scope.data = []
 
         var pillData = []
@@ -344,9 +361,9 @@ angular.module('app')
             dataPoints: bottlePoints
           })
 
-        console.log('diff is bottle is ', bottlePoints, ' and  presc is ', prescriptionPoints[0])
+       // console.log('diff is bottle is ', bottlePoints, ' and  presc is ', prescriptionPoints[0])
 
-        console.log("data loaded to graph is ", $scope.data)
+       // console.log("data loaded to graph is ", $scope.data)
         $scope.chart = new CanvasJS.Chart("myChart0", {
               title:{
                   text: prescName + "'s Graph"

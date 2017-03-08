@@ -20,14 +20,14 @@ angular.module('app')
     }
 
     $scope.switchAllTimeView = function() {
-        monthView = false;
-        weekView = false;
-        //console.log(prescName)
+        monthView = false
+        weekView = false
+        $scope.retrievePrescription(presc);
     }
 
     function datesFallInCurrentWeek(bottleList) {
-        console.log(bottleList.length);
-      selectedDates = []
+   //     console.log(bottleList.length);
+        selectedDates = []
       for (i = 0 ; i < bottleList.length; i++) {
         if (checkDatesWithinRange(bottleList[i].substring(10), monthView)) {
           selectedDates.push(bottleList[i]);
@@ -81,7 +81,18 @@ angular.module('app')
               d.setDate(d.getDate() - 7);
           }
       } else {
-
+          var slash = "/";
+          var dayCreated = presc.pill.createdAt.substring(8, 10).concat(slash);
+          var monthCreated = presc.pill.createdAt.substring(5, 7).concat(slash);
+          var dateCreated = monthCreated.concat(dayCreated);
+          dateCreated = dateCreated.concat(presc.pill.createdAt.substring(0, 4));
+          var createdDate = Date.parse(dateCreated);
+          while (d >= createdDate) {
+              if (today.getTime() >= d.getTime()) {
+                  dayList.push(new Date(d.getTime()));
+              }
+              d.setDate(d.getDate() - 7);
+          }
       }
       return dayList;
     }
@@ -268,6 +279,7 @@ angular.module('app')
 
         // FIRST DEAL WITH PRESCRIPTIONS
         presc = prescription
+
         prescName = prescription.name
 
         $scope.data = []
@@ -340,7 +352,7 @@ angular.module('app')
         }
 
         bottleUpdateList = datesFallInCurrentWeek(bottleUpdateList);
-        console.log(bottleUpdateList.length);
+       // console.log(bottleUpdateList.length);
 
         bottleDayList = []
         bottleHourList = []

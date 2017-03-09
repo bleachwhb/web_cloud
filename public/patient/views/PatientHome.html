@@ -25,12 +25,14 @@
 			<table id="period0" style="border: 1px solid black; border-collapse: collapse;">
 			<tr>
 				<th> Pill Name </th>
-				<th> Schedule </th>
+				<th> Hour </th>
+				<th> Taken? </th>
 				<!--<th>time</th>-->
 			</tr>
-			<tr ng-repeat="item in prescription">
-			  <td>{{item.pill.pillInfo}}</td>
-				<td>{{item.schedule[0].time}}</td>
+			<tr ng-repeat="item in prescriptionPoints">
+			  <td>{{item.x}}</td>
+			  <td>{{item.y}}</td>
+			  <td> {{item.z}}</td>
 			</tr>
 			</table>
 		</div>

@@ -1,7 +1,61 @@
+
 angular.module('app')
   .controller('patient_graphCtrl', ['$scope', '$rootScope', '$location', 'APIService',
     function($scope, $rootScope, $location, APIService) {
     bottleUpdateList = []
+    var presc
+
+    var monthView = true
+    var weekView = false
+
+    $scope.switchMonthView = function(){
+      monthView = true
+      weekView = false
+        $scope.retrievePrescription(presc);
+    }
+
+    $scope.switchWeekView = function(){
+      weekView = true
+      monthView = false
+        $scope.retrievePrescription(presc);
+    }
+
+    $scope.switchAllTimeView = function() {
+        monthView = false
+        weekView = false
+        $scope.retrievePrescription(presc);
+    }
+
+    function datesFallInCurrentWeek(bottleList) {
+   //     console.log(bottleList.length);
+        selectedDates = []
+      for (i = 0 ; i < bottleList.length; i++) {
+        if (checkDatesWithinRange(bottleList[i].substring(10), monthView)) {
+          selectedDates.push(bottleList[i]);
+        }
+      }
+      return selectedDates;
+    }
+
+    function checkDatesWithinRange(day, val) {
+      var dateFrom1 = "03/05/2017";
+      var dateTo1 = "03/11/2017";
+      var dateFrom2 = "03/01/2017";
+      var dateTo2 = "03/31/2017";
+      var dateCheck = day;
+
+      var from, to
+      if (val) {
+        from = Date.parse(dateFrom2);
+        to   = Date.parse(dateTo2);
+      } else {
+        from = Date.parse(dateFrom1);
+        to   = Date.parse(dateTo1);
+      }
+      var check = Date.parse(dateCheck);
+
+      return (check <= to && check >= from);
+    }
 
     function getDays(day) {
       var d = new Date(),
@@ -12,10 +66,34 @@ angular.module('app')
       while (d.getDay() !== day) {
         d.setDate(d.getDate() + 1);
       }
-      // Get all the other Mondays in the month
-      while (d.getMonth() === month) {
-        dayList.push(new Date(d.getTime()));
-        d.setDate(d.getDate() + 7);
+
+      var today = new Date();
+
+      if (weekView) {
+        d.setDate(d.getDate());
+          if (today.getTime() >= d.getTime()) {
+              dayList.push(new Date(d.getTime()));
+          }
+      } else if (monthView) {
+          while (d.getMonth() === month) {
+              if (today.getTime() >= d.getTime()) {
+                dayList.push(new Date(d.getTime()));
+              }
+              d.setDate(d.getDate() - 7);
+          }
+      } else {
+          var slash = "/";
+          var dayCreated = presc.pill.createdAt.substring(8, 10).concat(slash);
+          var monthCreated = presc.pill.createdAt.substring(5, 7).concat(slash);
+          var dateCreated = monthCreated.concat(dayCreated);
+          dateCreated = dateCreated.concat(presc.pill.createdAt.substring(0, 4));
+          var createdDate = Date.parse(dateCreated);
+          while (d >= createdDate) {
+              if (today.getTime() >= d.getTime()) {
+                  dayList.push(new Date(d.getTime()));
+              }
+              d.setDate(d.getDate() - 7);
+          }
       }
       return dayList;
     }
@@ -32,7 +110,6 @@ angular.module('app')
             APIService.GetPrescription(results[0].patientId)
               .success(function(results) {
                 $scope.prescriptions = results;
-                // console.log($scope.prescriptions.name);
               })
               .error(function(error) {
                 alert(error.code + ' ' + error.message);
@@ -64,10 +141,10 @@ angular.module('app')
         APIService.GetRelatedBottles('8FJOGrTheH')
           .success(function(results) {
             $scope.bottleInfo = results;
-            console.log("service called ", $scope.bottleInfo)
+ //           console.log("service called ", $scope.bottleInfo)
           })
           .error(function(error) {
-            console.log("serviced failed")
+ //           console.log("serviced failed")
             alert(error.code + ' ' + error.message);
           });
 
@@ -76,7 +153,7 @@ angular.module('app')
 
     function getHr(element) {
           var n = element.indexOf('T')
-          return Number(element.substring(n+1,n+3)) - 5
+          return Number(element.substring(n+1,n+3)) - 6
     }
 
     var dateToNum = {
@@ -202,19 +279,21 @@ angular.module('app')
     $scope.retrievePrescription = function(prescription) {
 
         // FIRST DEAL WITH PRESCRIPTIONS
+        presc = prescription
 
         prescName = prescription.name
+
         $scope.data = []
 
         var pillData = []
 
         var prescriptionPoints = new Array();
 
-      
+
         for (n = 0; n < prescription.times.length; n++) {
             prescriptionPoints[n] = new Array();
         }
-    
+
 
         // RETRIEVE THE CORRECT DATA
         for (j in prescription.times) {
@@ -234,11 +313,11 @@ angular.module('app')
               }
             }
         }
-    
+
 
 
         for (i in prescriptionPoints) {
-            console.log("prescription points are ", prescriptionPoints[i])
+//            console.log("prescription points are ", prescriptionPoints[i])
             $scope.data.push({
               type: "scatter",
               color: "#778899",
@@ -272,6 +351,10 @@ angular.module('app')
                 bottleUpdateList.push($scope.bottleInfo[bott].updates[j].timestamp)
             }
         }
+
+        bottleUpdateList = datesFallInCurrentWeek(bottleUpdateList);
+       // console.log(bottleUpdateList.length);
+
         bottleDayList = []
         bottleHourList = []
         var bottlePoints = []
@@ -291,9 +374,9 @@ angular.module('app')
             dataPoints: bottlePoints
           })
 
-        console.log('diff is bottle is ', bottlePoints, ' and  presc is ', prescriptionPoints[0])
+       // console.log('diff is bottle is ', bottlePoints, ' and  presc is ', prescriptionPoints[0])
 
-        console.log("data loaded to graph is ", $scope.data)
+       // console.log("data loaded to graph is ", $scope.data)
         $scope.chart = new CanvasJS.Chart("myChart0", {
               title:{
                   text: prescName + "'s Graph"
@@ -303,7 +386,7 @@ angular.module('app')
                   gridThickness: 2
               },
               axisY: {
-                  title: "Time"
+                  title: "Time (hr)"
               },
               data: $scope.data
           });

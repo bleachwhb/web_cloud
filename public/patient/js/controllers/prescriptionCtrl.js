@@ -117,6 +117,7 @@ angular
 	          var newHour = date.substring(0, 2)
 	          return newHour
 	        }
+	        // console.log("bottle INFO is ", $scope.bottleInfo)
 
 	        for (bott in $scope.bottleInfo) {
 	            for (j in $scope.bottleInfo[bott].updates) {
@@ -151,7 +152,6 @@ angular
 	            		y: $scope.prescriptionPts[i].y,
 	            		z: taken
 	               	 })	
-	               	 console.log("end is ", $scope.prescriptionPoints)
 
 
 	                 // console.log("hdiff is ", hDiff)
@@ -169,6 +169,13 @@ angular
 		          })
 		        }
 	        }
+	       // console.log("end is ", $scope.prescriptionPoints, "and ", $scope.prescriptionPts)
+	       if ($scope.prescriptionPoints.length==0) {
+	       		// console.log("entered")
+	       		$scope.prescriptionPoints = $scope.prescriptionPts.concat()
+	       }
+	       console.log("new end is ", $scope.prescriptionPoints)
+
 	        console.log("bottle points are ", bottlePoints)
   	    } // retrieveData()
     }

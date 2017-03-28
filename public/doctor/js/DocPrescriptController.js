@@ -178,10 +178,11 @@ angular.module('app')
         pillId: $scope.selectedPill.pillId,
         name: $scope.prescriptionName,
         note: $scope.note,
-        pillBottle: $scope.selectedBottle
+        pillBottle: $scope.selectedBottle,
+        pillName: $scope.selectedPill.pillName
       };
       // console.log("selected nem is ", $scope.selected.name)
-      // console.log("selected pill is ", $scope.selectedPill)
+      // console.log("selected pill is ", $scope.selectedPill.pillName)
 
       prescription['times'] = [];
       $scope.times.forEach(function(time) {

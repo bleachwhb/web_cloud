@@ -1,3 +1,4 @@
+
 angular.module('app')
   .controller('patient_graphCtrl', ['$scope', '$rootScope', '$location', 'APIService',
     function($scope, $rootScope, $location, APIService) {

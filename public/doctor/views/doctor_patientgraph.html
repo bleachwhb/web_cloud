@@ -1,5 +1,4 @@
-
-  <div class="row" ng-controller="patient_graphCtrl">
+ <div class="row" ng-controller="patient_graphCtrl">
       <div class="col-md-4">
         <h3 id="patientlist-title">Patients List</h3>
         <div class="input-group">
@@ -11,7 +10,7 @@
 
         <div class="list-group" id="patient_names">
             <div ng-repeat="patient in patients">
-                <a class="list-group-item" ng-click="retrieveData(patient)"
+                <a class="list-group-item"
                    ng-class="{'active': togglePatient.patientId===patient.patientId}">
                     <h4 class="list-group-item-heading">{{patient.firstName}} {{patient.lastName}}</h4>
                 </a>
@@ -25,24 +24,39 @@
 
     <!-- button group -->
     <div class="btn-group" role="group" aria-label="...">
-      <!-- button -->
-      <button type="button" class="btn btn-default" id="SelectAll" ng-click="SelectALL()">Select All</button>
-      <button type="button" class="btn btn-default" id="unSelectAll" ng-click="unSelectALL()">Unselect All</button>
-      <!-- switch view -->
-      <div class="btn-group dropup" role="group">
+      
+      <div class="btn-group dropdown" role="group">
         <button type="button" id="view" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span id="view-text">Week</span>
+          <span id="view-text">Prescriptions</span>
+          <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu">
+          <li ng-repeat="item in prescriptions">
+            <a ng-click="$parent.current = item;  retrievePrescription(item)">
+              {{item.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- switch view -->
+      <div class="btn-group dropdown" role="group">
+        <button type="button" id="view" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span id="view-text">View</span>
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
           <li><a href="javascript:void(0)" id="week-view" ng-click="switchWeekView()">Week</a></li>
           <li><a href="javascript:void(0)" id="month-view" ng-click="switchMonthView()">Month</a></li>
-          <li><a href="javascript:void(0)" id="customize-view" data-toggle="modal" data-target="#myModal">Customize</a></li>
+          <li><a href="javascript:void(0)" id="customize-view" ng-click="switchAllTimeView()">All-time</a></li>
         </ul>
       </div>
+
+
     </div>
     
-    <!-- Modal for Choosing Customized Date-->
+    <!--
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -67,6 +81,7 @@
         </div>
       </div>
     </div>
+Modal for Choosing Customized Date-->
 
     <div class="col-xs-12">
         <div id="myChart0"></div>
@@ -79,5 +94,5 @@
 
 
 
-  </div>
+</div>
 </div>

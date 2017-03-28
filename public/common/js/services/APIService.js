@@ -232,6 +232,18 @@ angular.module('app')
           });
         return deferred.promise;
       },
+      GetRelatedBottles: function(prescriptionID) {
+        var deferred = APIUtility.defer();
+        var bottleURL = '/prescription?prescriptionId='.concat(prescriptionID)
+        APIUtility.GET(bottleURL)
+          .then(function (data, status, headers, config) {
+            console.log(data);
+            return deferred.resolve(data.data);
+          }, function (data, status, header, config) {
+            return deferred.reject(data.data)
+          });
+        return deferred.promise;
+      },
 
       GetPatientBottles: function(patientID) {
         var deferred = APIUtility.defer();

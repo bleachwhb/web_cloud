@@ -5,7 +5,7 @@ angular.module('app')
  })
 
 .config(function($routeProvider, $locationProvider) {
-
+      $locationProvider.hashPrefix('');
       $routeProvider
         // route for the home page
       .when('/', {
